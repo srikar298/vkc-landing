@@ -1,0 +1,3 @@
+User-agent: *
+Allow: /
+Sitemap: https://srikar298.github.io/vkc-landing/sitemap.xml
