@@ -11,18 +11,15 @@ import {
   Hammer,
   Ruler,
   BookOpen,
-  Compass,
-  PenTool,
-  Pin,
-  Spline
+  Compass
 } from 'lucide-react';
-import { translations, divineTools, eventsData as localEvents } from './data/mock-data';
+import { translations, eventsData as localEvents } from './data/mock-data';
 import { fetchGooglePhotosAlbum } from './utils/google-photos';
 import { supabase } from './lib/supabase';
 import { Admin } from './components/Admin';
 import { About } from './components/About';
 import { JoinModal } from './components/JoinModal';
-import vishwakarmaImg from './assets/lord_vishwakarma_hero.png';
+import { HeroFiveSons } from './components/HeroFiveSons';
 
 // Replace with your actual Google Photos shared album ID
 const ALBUM_ID = 'AF1QipN_XMdvzWw9ZKmIoI2He1d-JdiHoIMAp2AIo6A9PNUORjW0K9q7t_d5oGz6z8OQ?key=N0Y4X3pQRVJwWGtpWG14UEY3';
@@ -73,16 +70,6 @@ function App() {
 
     return () => window.removeEventListener('hashchange', handleHash);
   }, []);
-
-  const IconMap: { [key: string]: any } = {
-    Hammer,
-    PenTool,
-    Ruler,
-    Pin,
-    Compass,
-    Spline,
-    BookOpen
-  };
 
   const LanguageSwitcher = () => (
     <div className="flex items-center gap-1 bg-saffron-50 p-1 rounded-xl border border-saffron-100">
@@ -174,92 +161,9 @@ function App() {
       </nav>
 
       {/* Hero Section */}
-      <section className="relative pt-32 pb-20 overflow-hidden min-h-[90vh] flex items-center">
-        <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[1000px] h-[600px] bg-gold-200/20 blur-[120px] rounded-full -z-10" />
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid lg:grid-cols-2 gap-16 items-center">
-            {/* Left: Divine Image */}
-            <div className="relative order-1">
-              <motion.div 
-                initial={{ opacity: 0, scale: 0.95 }}
-                animate={{ opacity: 1, scale: 1 }}
-                transition={{ duration: 0.8, ease: "easeOut" }}
-                className="aspect-[4/5] rounded-[2rem] overflow-hidden shadow-2xl shadow-saffron-900/20 border-4 border-white/50 relative z-10 transition-transform hover:scale-[1.02] duration-500"
-              >
-                <img 
-                  src={vishwakarmaImg} 
-                  alt="Lord Vishwakarma" 
-                  className="w-full h-full object-cover grayscale-[0.2] hover:grayscale-0 transition-all duration-700"
-                />
-              </motion.div>
-              <div className="absolute -top-6 -left-6 w-32 h-32 bg-saffron-100 rounded-full blur-3xl opacity-50 animate-pulse" />
-              <div className="absolute -bottom-6 -right-6 w-48 h-48 bg-gold-200 rounded-full blur-3xl opacity-30 animate-pulse" />
-            </div>
-
-            {/* Right: Content */}
-            <div className="text-left order-2">
-              <motion.div 
-                initial={{ opacity: 0, y: 10 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: 0.2 }}
-                className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-saffron-100 text-saffron-700 text-xs sm:text-sm font-bold mb-8"
-              >
-                <span className="relative flex h-2 w-2">
-                  <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-saffron-400 opacity-75"></span>
-                  <span className="relative inline-flex rounded-full h-2 w-2 bg-saffron-600"></span>
-                </span>
-                {t.hero.blessings}
-              </motion.div>
-              <h1 className="text-4xl sm:text-5xl md:text-7xl font-extrabold text-stone-900 tracking-tight leading-tight mb-6 font-display">
-                {t.hero.title} <br />
-                <span className="text-saffron-600">{t.hero.subtitle}</span>
-              </h1>
-              <p className="text-lg md:text-xl text-stone-600 mb-10 leading-relaxed max-w-xl">
-                {t.hero.description}
-              </p>
-              
-              <div className="flex flex-col sm:flex-row gap-4 mb-16">
-                <button 
-                  onClick={() => window.location.hash = '#mission'}
-                  className="bg-saffron-600 text-white px-8 py-4 rounded-2xl font-bold text-lg hover:bg-saffron-700 transition-all flex items-center justify-center gap-2 group shadow-lg shadow-saffron-600/20 active:scale-95"
-                >
-                  {t.hero.explore}
-                  <ChevronRight className="group-hover:translate-x-1 transition-transform" />
-                </button>
-                <a href="#gallery" className="bg-white border border-stone-200 text-stone-700 px-8 py-4 rounded-2xl font-bold text-lg hover:border-saffron-300 hover:bg-saffron-50 transition-all text-center active:scale-95">
-                  {t.hero.viewGallery}
-                </a>
-              </div>
-
-              {/* Heritage Symbols Integrated Subtly */}
-              <div className="pt-8 border-t border-saffron-100/50">
-                 <p className="text-[10px] uppercase tracking-[0.3em] font-black text-saffron-500/60 mb-6">{t.hero.heritageTitle}</p>
-                 <div className="flex flex-wrap gap-4 sm:gap-6">
-                   {divineTools.map((tool, i) => {
-                     const Icon = IconMap[tool.icon];
-                     return (
-                       <div key={i} className="group relative">
-                         <div className="bg-white p-2.5 rounded-lg shadow-sm border border-stone-100 group-hover:border-saffron-200 group-hover:bg-saffron-50 transition-all duration-300">
-                           {Icon && <Icon size={20} className="text-stone-300 group-hover:text-saffron-600" />}
-                         </div>
-                         <div className="absolute -top-10 left-1/2 -translate-x-1/2 bg-stone-900 text-white text-[9px] px-2 py-1 rounded whitespace-nowrap opacity-0 group-hover:opacity-100 transition-opacity z-20 pointer-events-none font-medium">
-                            {tool.name.split(' ')[0]}
-                         </div>
-                         {/* Symbolic Tooltip Content */}
-                         <div className="absolute bottom-full left-1/2 -translate-x-1/2 mb-12 w-48 p-3 bg-stone-900 text-white text-[10px] leading-relaxed rounded-xl opacity-0 group-hover:opacity-100 transition-all duration-300 pointer-events-none z-30 shadow-2xl scale-95 group-hover:scale-100 origin-bottom">
-                            <p className="font-bold text-saffron-400 mb-1">{tool.name}</p>
-                            {(tool.symbolic as any)[lang]}
-                            <div className="absolute top-full left-1/2 -translate-x-1/2 border-x-[6px] border-x-transparent border-t-[6px] border-t-stone-900" />
-                         </div>
-                       </div>
-                     );
-                   })}
-                 </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
+      <main className="flex-1">
+        <HeroFiveSons />
+      </main>
 
       {/* About Section */}
       <section id="about" className="py-24 bg-white relative overflow-hidden">
