@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import type { Session, AuthChangeEvent } from '@supabase/supabase-js';
 import { supabase } from '@/infrastructure/config/supabaseClient';
@@ -60,14 +60,7 @@ export function Admin() {
     return () => subscription.unsubscribe();
   }, []);
 
-  useEffect(() => {
-    if (session) {
-      fetchEvents();
-      fetchInquiries();
-    }
-  }, [session]);
-
-  async function fetchEvents() {
+  const fetchEvents = useCallback(async () => {
     const { data, error } = await supabase
       .from('events')
       .select('*')
@@ -75,9 +68,9 @@ export function Admin() {
 
     if (error) console.error('Error fetching events:', error);
     else setEvents(data || []);
-  }
+  }, []);
 
-  async function fetchInquiries() {
+  const fetchInquiries = useCallback(async () => {
     const { data, error } = await supabase
       .from('inquiries')
       .select('*')
@@ -85,7 +78,16 @@ export function Admin() {
 
     if (error) console.error('Error fetching inquiries:', error);
     else setInquiries(data || []);
-  }
+  }, []);
+
+  useEffect(() => {
+    if (session) {
+      setTimeout(() => {
+        fetchEvents();
+        fetchInquiries();
+      }, 0);
+    }
+  }, [session, fetchEvents, fetchInquiries]);
 
   async function handleLogin(e: React.FormEvent) {
     e.preventDefault();

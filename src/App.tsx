@@ -26,6 +26,24 @@ const ALBUM_ID = 'AF1QipN_XMdvzWw9ZKmIoI2He1d-JdiHoIMAp2AIo6A9PNUORjW0K9q7t_d5oG
 
 type Language = 'en' | 'hi' | 'te';
 
+const LanguageSwitcher = ({ lang, setLang }: { lang: Language, setLang: (l: Language) => void }) => (
+  <div className="flex items-center gap-1 bg-saffron-50 p-1 rounded-xl border border-saffron-100">
+    {(['en', 'hi', 'te'] as Language[]).map((l) => (
+      <button
+        key={l}
+        onClick={() => setLang(l)}
+        className={`px-3 py-1 rounded-lg text-xs font-bold transition-all ${
+          lang === l 
+            ? 'bg-saffron-600 text-white shadow-sm' 
+            : 'text-saffron-600 hover:bg-saffron-100'
+        }`}
+      >
+        {l.toUpperCase()}
+      </button>
+    ))}
+  </div>
+);
+
 function App() {
   const [lang, setLang] = useState<Language>('en');
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -71,23 +89,7 @@ function App() {
     return () => window.removeEventListener('hashchange', handleHash);
   }, []);
 
-  const LanguageSwitcher = () => (
-    <div className="flex items-center gap-1 bg-saffron-50 p-1 rounded-xl border border-saffron-100">
-      {(['en', 'hi', 'te'] as Language[]).map((l) => (
-        <button
-          key={l}
-          onClick={() => setLang(l)}
-          className={`px-3 py-1 rounded-lg text-xs font-bold transition-all ${
-            lang === l 
-              ? 'bg-saffron-600 text-white shadow-sm' 
-              : 'text-saffron-600 hover:bg-saffron-100'
-          }`}
-        >
-          {l.toUpperCase()}
-        </button>
-      ))}
-    </div>
-  );
+
 
   if (showAdmin) return <Admin />;
   if (showAbout) return <About onBack={() => window.location.hash = ''} onJoinClick={() => setIsJoinModalOpen(true)} />;
@@ -115,7 +117,7 @@ function App() {
                 <a href="#gallery" className="text-stone-600 hover:text-saffron-600 transition-colors font-medium">{t.nav.gallery}</a>
               </div>
               <div className="flex items-center gap-4">
-                <LanguageSwitcher />
+                <LanguageSwitcher lang={lang} setLang={setLang} />
                 <button 
                   onClick={() => setIsJoinModalOpen(true)}
                   className="bg-saffron-600 text-white px-5 py-2 rounded-full font-semibold hover:bg-saffron-700 transition-all shadow-md active:scale-95 text-sm"
@@ -127,7 +129,7 @@ function App() {
 
             {/* Mobile Nav Toggle */}
             <div className="flex items-center gap-4 md:hidden">
-              <LanguageSwitcher />
+              <LanguageSwitcher lang={lang} setLang={setLang} />
               <button onClick={() => setIsMenuOpen(!isMenuOpen)} className="p-2 text-saffron-900">
                 {isMenuOpen ? <X size={24} /> : <Menu size={24} />}
               </button>

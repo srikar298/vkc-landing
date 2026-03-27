@@ -50,7 +50,7 @@ export async function fetchGooglePhotosAlbum(albumId: string) {
 
       if (!html || html.length < 500) continue;
 
-      const regex = /\["(https:\/\/[a-zA-Z0-9\.]+\.(googleusercontent|usercontent\.google)\.com\/pw\/[a-zA-Z0-9\-_]*)"/g;
+      const regex = /\["(https:\/\/[a-zA-Z0-9.]+\.(?:googleusercontent|usercontent\.google)\.com\/pw\/[a-zA-Z0-9\-_]*)"/g;
       const links = new Set<string>();
       let match;
 
