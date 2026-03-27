@@ -1,4 +1,4 @@
-export const translations: Record<string, any> = {
+export const translations: Record<string, Record<string, Record<string, string>>> = {
   en: {
     nav: {
       about: "About",

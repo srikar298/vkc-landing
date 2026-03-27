@@ -13,13 +13,13 @@ import {
   BookOpen,
   Compass
 } from 'lucide-react';
-import { translations, eventsData as localEvents } from './data/mock-data';
-import { fetchGooglePhotosAlbum } from './utils/google-photos';
-import { supabase } from './lib/supabase';
-import { Admin } from './components/Admin';
-import { About } from './components/About';
-import { JoinModal } from './components/JoinModal';
-import { HeroFiveSons } from './components/HeroFiveSons';
+import { translations, eventsData as localEvents } from '@/shared/constants/mock-data';
+import { fetchGooglePhotosAlbum } from '@/infrastructure/api/googlePhotos.api';
+import { supabase } from '@/infrastructure/config/supabaseClient';
+import { Admin } from '@/features/admin/components/Admin';
+import { About } from '@/features/heritage/components/About';
+import { JoinModal } from '@/features/onboarding/components/JoinModal';
+import { HeroFiveSons } from '@/features/heritage/components/HeroFiveSons';
 
 // Replace with your actual Google Photos shared album ID
 const ALBUM_ID = 'AF1QipN_XMdvzWw9ZKmIoI2He1d-JdiHoIMAp2AIo6A9PNUORjW0K9q7t_d5oGz6z8OQ?key=N0Y4X3pQRVJwWGtpWG14UEY3';
@@ -29,9 +29,9 @@ type Language = 'en' | 'hi' | 'te';
 function App() {
   const [lang, setLang] = useState<Language>('en');
   const [isMenuOpen, setIsMenuOpen] = useState(false);
-  const [photos, setPhotos] = useState<any[]>([]);
+  const [photos, setPhotos] = useState<Record<string, string>[]>([]);
   const [loadingPhotos, setLoadingPhotos] = useState(true);
-  const [events, setEvents] = useState<any[]>(localEvents);
+  const [events, setEvents] = useState<typeof localEvents>(localEvents);
   const [showAdmin, setShowAdmin] = useState(false);
   const [showAbout, setShowAbout] = useState(false);
   const [isJoinModalOpen, setIsJoinModalOpen] = useState(false);
@@ -231,17 +231,17 @@ function App() {
                 <div className="relative z-10">
                   <div className="flex items-center gap-2 text-saffron-600 font-bold mb-6 uppercase tracking-widest text-[10px]">
                     <Calendar size={14} />
-                    {(event.date as any)[lang]}
+                    {(event.date as Record<string, string>)[lang]}
                   </div>
                   <h3 className="text-2xl font-black text-stone-900 mb-4 group-hover:text-saffron-700 transition-colors leading-tight font-display">
-                    {(event.title as any)[lang]}
+                    {(event.title as Record<string, string>)[lang]}
                   </h3>
                   <p className="text-stone-500 mb-8 line-clamp-3 text-sm leading-relaxed">
-                    {(event.description as any)[lang]}
+                    {(event.description as Record<string, string>)[lang]}
                   </p>
                   <div className="flex items-center gap-2 text-stone-400 text-xs font-bold bg-stone-50 self-start px-3 py-2 rounded-lg">
                     <MapPin size={14} className="text-gold-500" />
-                    {(event.location as any)[lang]}
+                    {(event.location as Record<string, string>)[lang]}
                   </div>
                 </div>
               </div>

@@ -11,7 +11,7 @@ import {
   CheckCircle2,
   Hammer
 } from 'lucide-react';
-import { supabase } from '../lib/supabase';
+import { supabase } from '@/infrastructure/config/supabaseClient';
 
 const TRADES = [
   "Carpenter (Suthar)", "Boat Maker", "Armourer", "Blacksmith (Lohar)", 

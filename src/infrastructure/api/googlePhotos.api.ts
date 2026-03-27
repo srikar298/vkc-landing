@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { fallbackPhotos } from '../data/mock-data';
+import { fallbackPhotos } from '@/shared/constants/mock-data';
 
 const PROXIES = [
   (url: string) => `https://api.allorigins.win/raw?url=${encodeURIComponent(url)}`,
@@ -28,7 +28,7 @@ export async function fetchGooglePhotosAlbum(albumId: string) {
         return data;
       }
       staleData = data; // Keep for fallback if fetch fails
-    } catch (e) {
+    } catch {
       console.warn('Google Photos: Cache corruption detected.');
     }
   }
@@ -74,7 +74,7 @@ export async function fetchGooglePhotosAlbum(albumId: string) {
         console.log(`Google Photos: Cache updated with ${links.size} photos.`);
         return fetchedPhotos;
       }
-    } catch (e) {
+    } catch {
       console.warn(`Google Photos: Proxy attempt failed.`);
     }
   }

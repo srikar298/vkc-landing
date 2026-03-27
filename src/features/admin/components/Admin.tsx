@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { supabase } from '../lib/supabase';
+import type { Session, AuthChangeEvent } from '@supabase/supabase-js';
+import { supabase } from '@/infrastructure/config/supabaseClient';
 import { 
   Plus, 
   Trash2, 
@@ -37,7 +38,7 @@ interface InquiryData {
 const LANGUAGES = ['en', 'hi', 'te'];
 
 export function Admin() {
-  const [session, setSession] = useState<any>(null);
+  const [session, setSession] = useState<Session | null>(null);
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [loading, setLoading] = useState(false);
@@ -48,11 +49,11 @@ export function Admin() {
   const [isAdding, setIsAdding] = useState(false);
 
   useEffect(() => {
-    supabase.auth.getSession().then(({ data: { session } }) => {
+    supabase.auth.getSession().then(({ data: { session } }: { data: { session: Session | null } }) => {
       setSession(session);
     });
 
-    const { data: { subscription } } = supabase.auth.onAuthStateChange((_event, session) => {
+    const { data: { subscription } } = supabase.auth.onAuthStateChange((_event: AuthChangeEvent, session: Session | null) => {
       setSession(session);
     });
 
