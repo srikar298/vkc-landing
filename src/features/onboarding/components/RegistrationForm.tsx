@@ -1,0 +1,185 @@
+import { useState } from 'react';
+import { motion, AnimatePresence } from 'framer-motion';
+import { User, MapPin, Briefcase, Camera, ArrowRight, ArrowLeft, CheckCircle } from 'lucide-react';
+
+interface RegistrationFormProps {
+  onComplete: (data: any) => void;
+}
+
+export const RegistrationForm = ({ onComplete }: RegistrationFormProps) => {
+  const [step, setStep] = useState(1);
+  const [formData, setFormData] = useState({
+    name: '',
+    phone: '',
+    location: '',
+    profession: '',
+    kula: '',
+    experience: '',
+    photo: null as string | null
+  });
+
+  const nextStep = () => setStep(s => s + 1);
+  const prevStep = () => setStep(s => s - 1);
+
+  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
+    const { name, value } = e.target;
+    setFormData(prev => ({ ...prev, [name]: value }));
+  };
+
+  const steps = [
+    { title: 'Personal Details', icon: <User size={18} /> },
+    { title: 'Profession & Kula', icon: <Briefcase size={18} /> },
+    { title: 'Lineage Info', icon: <Camera size={18} /> }
+  ];
+
+  return (
+    <div className="bg-white rounded-[2rem] md:rounded-[3rem] p-6 md:p-12 shadow-2xl border border-stone-100 relative overflow-hidden">
+      {/* Progress Bar */}
+      <div className="flex justify-between mb-12 relative">
+         <div className="absolute top-1/2 left-0 w-full h-[2px] bg-stone-100 -translate-y-1/2 z-0" />
+         <div 
+           className="absolute top-1/2 left-0 h-[2px] bg-vermilion -translate-y-1/2 z-0 transition-all duration-500"
+           style={{ width: `${((step - 1) / (steps.length - 1)) * 100}%` }}
+         />
+         {steps.map((s, i) => (
+           <div key={i} className={`relative z-10 w-8 h-8 md:w-10 md:h-10 rounded-full flex items-center justify-center border-2 transition-all duration-500 ${
+             step > i + 1 ? 'bg-vermilion border-vermilion text-white' : 
+             step === i + 1 ? 'bg-white border-vermilion text-vermilion shadow-lg shadow-vermilion/20' : 
+             'bg-white border-stone-200 text-stone-300'
+           }`}>
+             {step > i + 1 ? <CheckCircle size={14} className="md:w-[18px] md:h-[18px]" /> : <span className="scale-75 md:scale-100">{s.icon}</span>}
+           </div>
+         ))}
+      </div>
+
+      <AnimatePresence mode="wait">
+        <motion.div
+           key={step}
+           initial={{ opacity: 0, x: 20 }}
+           animate={{ opacity: 1, x: 0 }}
+           exit={{ opacity: 0, x: -20 }}
+           className="space-y-8"
+        >
+          {step === 1 && (
+            <div className="space-y-6">
+              <div className="space-y-2">
+                <h3 className="text-2xl font-black text-stone-900">Personal Details</h3>
+                <p className="text-stone-500 text-sm">Let’s start with your basic information.</p>
+              </div>
+              <div className="grid gap-6">
+                <div className="space-y-2">
+                   <label className="text-[10px] font-black uppercase tracking-widest text-stone-400">Full Name</label>
+                   <input 
+                     type="text" 
+                     name="name"
+                     value={formData.name}
+                     onChange={handleInputChange}
+                     placeholder="e.g. Sri Bhaskar Chary"
+                     className="w-full h-14 px-6 bg-stone-50 rounded-2xl border-none focus:ring-2 focus:ring-vermilion transition-all font-medium"
+                   />
+                </div>
+                <div className="space-y-2">
+                   <label className="text-[10px] font-black uppercase tracking-widest text-stone-400">Phone Number</label>
+                   <input 
+                     type="tel" 
+                     name="phone"
+                     value={formData.phone}
+                     onChange={handleInputChange}
+                     placeholder="+91 98480 XXXXX"
+                     className="w-full h-14 px-6 bg-stone-50 rounded-2xl border-none focus:ring-2 focus:ring-vermilion transition-all font-medium"
+                   />
+                </div>
+              </div>
+            </div>
+          )}
+
+          {step === 2 && (
+            <div className="space-y-6">
+              <div className="space-y-2">
+                <h3 className="text-2xl font-black text-stone-900">Profession & Kula</h3>
+                <p className="text-stone-500 text-sm">Select your traditional trade and expertise.</p>
+              </div>
+              <div className="grid gap-6">
+                <div className="space-y-2">
+                   <label className="text-[10px] font-black uppercase tracking-widest text-stone-400">Pancha-Kula Branch</label>
+                   <select 
+                     name="kula"
+                     value={formData.kula}
+                     onChange={handleInputChange}
+                     className="w-full h-14 px-6 bg-stone-50 rounded-2xl border-none focus:ring-2 focus:ring-vermilion transition-all font-medium appearance-none"
+                   >
+                      <option value="">Select Branch</option>
+                      <option value="Manus (Blacksmith)">Manus (Blacksmith)</option>
+                      <option value="Maya (Carpenter)">Maya (Carpenter)</option>
+                      <option value="Thwashta (Metalworker)">Thwashta (Metalworker)</option>
+                      <option value="Shilpi (Sculptor)">Shilpi (Sculptor)</option>
+                      <option value="Vishwajna (Goldsmith)">Vishwajna (Goldsmith)</option>
+                   </select>
+                </div>
+                <div className="space-y-2">
+                   <label className="text-[10px] font-black uppercase tracking-widest text-stone-400">Modern Profession</label>
+                   <input 
+                     type="text" 
+                     name="profession"
+                     value={formData.profession}
+                     onChange={handleInputChange}
+                     placeholder="e.g. Architectural Engineer"
+                     className="w-full h-14 px-6 bg-stone-50 rounded-2xl border-none focus:ring-2 focus:ring-vermilion transition-all font-medium"
+                   />
+                </div>
+              </div>
+            </div>
+          )}
+
+          {step === 3 && (
+            <div className="space-y-6">
+              <div className="space-y-2">
+                <h3 className="text-2xl font-black text-stone-900">Final Verification</h3>
+                <p className="text-stone-500 text-sm">Complete your profile to generate your Digital ID.</p>
+              </div>
+              <div className="grid gap-6">
+                <div className="space-y-2">
+                   <label className="text-[10px] font-black uppercase tracking-widest text-stone-400">Location (City/Village)</label>
+                   <div className="relative">
+                      <MapPin className="absolute left-5 top-1/2 -translate-y-1/2 text-stone-400" size={18} />
+                      <input 
+                        type="text" 
+                        name="location"
+                        value={formData.location}
+                        onChange={handleInputChange}
+                        placeholder="e.g. Warangal, TS"
+                        className="w-full h-14 pl-14 pr-6 bg-stone-50 rounded-2xl border-none focus:ring-2 focus:ring-vermilion transition-all font-medium"
+                      />
+                   </div>
+                </div>
+                <div className="p-6 bg-saffron-50 rounded-3xl border border-saffron-100 flex items-start gap-4">
+                   <CheckCircle className="text-saffron-600 shrink-0" size={20} />
+                   <p className="text-stone-700 text-xs leading-relaxed font-medium">
+                     By submitting, you agree to list your profile in the VKC Global Directory and participate in community mentorship.
+                   </p>
+                </div>
+              </div>
+            </div>
+          )}
+        </motion.div>
+      </AnimatePresence>
+
+      <div className="flex gap-4 mt-12 pt-8 border-t border-stone-100">
+        {step > 1 && (
+          <button 
+            onClick={prevStep}
+            className="flex-1 h-16 rounded-2xl border-2 border-stone-100 text-stone-400 font-black uppercase tracking-widest text-xs flex items-center justify-center gap-3 hover:bg-stone-50 transition-all active:scale-95"
+          >
+            <ArrowLeft size={16} /> Previous
+          </button>
+        )}
+        <button 
+          onClick={step === 3 ? () => onComplete(formData) : nextStep}
+          className="flex-[2] h-16 rounded-2xl bg-stone-900 text-white font-black uppercase tracking-widest text-xs flex items-center justify-center gap-3 hover:bg-vermilion transition-all shadow-xl shadow-stone-900/10 active:scale-95"
+        >
+          {step === 3 ? 'Generate My ID' : 'Continue'} <ArrowRight size={16} />
+        </button>
+      </div>
+    </div>
+  );
+};

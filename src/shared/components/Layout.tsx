@@ -9,8 +9,9 @@ import {
   ChevronDown,
   Compass,
   Award,
-  Calendar,
-  Image as ImageIcon
+  Users,
+  Flag,
+  Calendar
 } from 'lucide-react';
 import { LanguageSwitcher } from './LanguageSwitcher';
 import { JoinModal } from '@/features/onboarding/components/JoinModal';
@@ -101,13 +102,22 @@ export const Layout = () => {
                         <p className="text-[10px] text-stone-400 font-bold uppercase tracking-widest">{t('nav.events_calendar')}</p>
                       </div>
                     </Link>
-                    <Link to="/gallery" className="flex items-center gap-4 p-4 hover:bg-stone-50 rounded-2xl transition-all group/item">
+                    <Link to="/network" className="flex items-center gap-4 p-4 hover:bg-stone-50 rounded-2xl transition-all group/item">
                       <div className="p-2 bg-stone-100 rounded-xl text-stone-600 group-hover/item:bg-stone-900 group-hover/item:text-white transition-colors">
-                        <ImageIcon size={18} />
+                        <Users size={18} />
                       </div>
                       <div>
-                        <p className="text-sm font-black text-stone-900 leading-none mb-1">{t('nav.gallery')}</p>
-                        <p className="text-[10px] text-stone-400 font-bold uppercase tracking-widest">{t('nav.gallery_archive')}</p>
+                        <p className="text-sm font-black text-stone-900 leading-none mb-1">{t('nav.network')}</p>
+                        <p className="text-[10px] text-stone-400 font-bold uppercase tracking-widest">Connect & Mentorship</p>
+                      </div>
+                    </Link>
+                    <Link to="/empowerment" className="flex items-center gap-4 p-4 hover:bg-stone-50 rounded-2xl transition-all group/item">
+                      <div className="p-2 bg-stone-100 rounded-xl text-stone-600 group-hover/item:bg-stone-900 group-hover/item:text-white transition-colors">
+                        <Flag size={18} />
+                      </div>
+                      <div>
+                        <p className="text-sm font-black text-stone-900 leading-none mb-1">Empowerment</p>
+                        <p className="text-[10px] text-stone-400 font-bold uppercase tracking-widest">Rights & Advocacy</p>
                       </div>
                     </Link>
                   </div>

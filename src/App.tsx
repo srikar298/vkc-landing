@@ -8,6 +8,8 @@ import { VisionPage } from '@/features/home/pages/VisionPage';
 import { HeritagePage } from '@/features/heritage/pages/HeritagePage';
 import { KnowledgePage } from '@/features/heritage/pages/KnowledgePage';
 import { LegendsPage } from '@/features/heritage/pages/LegendsPage';
+import { NetworkHub } from '@/features/network/pages/NetworkHub';
+import { EmpowermentPage } from '@/features/empowerment/pages/EmpowermentPage';
 import { Admin } from '@/features/admin/components/Admin';
 import { ScrollToTop } from '@/shared/components/ScrollToTop';
 
@@ -24,6 +26,8 @@ function App() {
           <Route path="heritage" element={<HeritagePage />} />
           <Route path="knowledge" element={<KnowledgePage />} />
           <Route path="legends" element={<LegendsPage />} />
+          <Route path="network" element={<NetworkHub />} />
+          <Route path="empowerment" element={<EmpowermentPage />} />
           <Route path="events" element={<HomePage />} /> {/* Map to home sections for now */}
           <Route path="gallery" element={<HomePage />} />
         </Route>
