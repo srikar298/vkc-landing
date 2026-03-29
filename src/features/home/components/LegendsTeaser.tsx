@@ -42,7 +42,7 @@ export const LegendsTeaser = () => {
             </div>
 
             <div className="flex items-center gap-8 py-4 border-y border-stone-100">
-               <div className="flex -space-x-3">
+               <div className="flex gap-2 mb-2">
                   {legends.map((legend, i) => (
                     <motion.div 
                       key={i} 
@@ -70,7 +70,7 @@ export const LegendsTeaser = () => {
           </motion.div>
 
           {/* Right Side Grid */}
-          <div className="lg:w-1/2 grid grid-cols-2 gap-4">
+          <div className="lg:w-1/2 grid grid-cols-1 sm:grid-cols-2 gap-12">
              {legends.map((legend, i) => (
                 <motion.div 
                   key={i} 
@@ -78,24 +78,25 @@ export const LegendsTeaser = () => {
                   whileInView={{ opacity: 1, y: i % 2 === 0 ? 32 : 0 }}
                   viewport={{ once: true }}
                   transition={{ duration: 0.8, delay: i * 0.1 }}
-                  className={`aspect-square rounded-[2rem] bg-stone-50 border border-stone-100 p-8 flex flex-col justify-end group/card hover:bg-white hover:shadow-xl hover:border-saffron-100 transition-all duration-500 overflow-hidden relative`}
+                  className={`aspect-square rounded-[2rem] bg-stone-900 border border-white/5 p-6 md:p-8 flex flex-col justify-end group/card hover:shadow-2xl hover:border-saffron-500/30 transition-all duration-500 overflow-hidden relative`}
                 >
                    <div className="absolute inset-0 z-0">
                       <img 
                         src={legend.img} 
                         alt={legend.name} 
-                        className="w-full h-full object-cover opacity-60 group-hover/card:opacity-90 transition-opacity duration-700" 
+                        className="w-full h-full object-cover opacity-80 group-hover/card:opacity-100 group-hover/card:scale-110 transition-all duration-700" 
                         onError={(e) => { (e.target as HTMLImageElement).src = 'https://images.unsplash.com/photo-1544005313-94ddf0286df2?auto=format&fit=crop&q=80&w=400'; }}
                       />
+                      <div className="absolute inset-0 bg-gradient-to-t from-stone-950 via-stone-950/20 to-transparent opacity-90" />
                    </div>
                    
                    <div className="relative z-10 space-y-2">
-                       <Award size={24} className="text-stone-300 group-hover/card:text-saffron-500 transition-colors mb-2" />
+                       <Award size={20} className="text-saffron-500 mb-2 opacity-50 group-hover/card:opacity-100 transition-opacity" />
                        <div>
-                          <p className="text-[8px] font-black text-stone-400 uppercase tracking-widest uppercase tracking-[0.2em]">{legend.title}</p>
-                          <h4 className="text-lg font-black text-stone-900 group-hover/card:text-saffron-600 transition-colors uppercase tracking-wider leading-tight">{legend.name}</h4>
+                          <p className="text-[10px] font-black text-saffron-400 uppercase tracking-widest leading-none mb-1">{legend.title}</p>
+                          <h4 className="text-lg md:text-xl font-black text-white group-hover/card:text-saffron-400 transition-colors uppercase tracking-wider leading-tight">{legend.name}</h4>
                        </div>
-                       <div className="h-1 w-8 bg-stone-200 group-hover/card:w-16 group-hover/card:bg-saffron-200 transition-all" />
+                       <div className="h-1 w-8 bg-white/20 group-hover/card:w-16 group-hover/card:bg-saffron-500 transition-all" />
                    </div>
                 </motion.div>
              ))}

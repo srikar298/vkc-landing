@@ -1,6 +1,5 @@
 import { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { useTranslation } from 'react-i18next';
 import { 
   Users, 
   Briefcase, 
@@ -16,7 +15,6 @@ import { ScrollToTop } from '@/shared/components/ScrollToTop';
 import { ProfessionalsHub, OfficialsDirectory, MatrimonyPortal, EducationHub } from '../components';
 
 export const NetworkHub = () => {
-  const { i18n } = useTranslation();
   const [activeTab, setActiveTab] = useState<'professionals' | 'officials' | 'matrimony' | 'education'>('professionals');
 
   const tabs = [

@@ -1,14 +1,12 @@
 import { useState } from 'react';
-import { useTranslation } from 'react-i18next';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Shield, Download, Share2, CreditCard, Sparkles, ArrowRight } from 'lucide-react';
+import { Shield, Download, Share2, Sparkles, ArrowRight } from 'lucide-react';
 import { MembershipCard } from '../components/MembershipCard';
 import { RegistrationForm } from '../components/RegistrationForm';
 import { SEO } from '@/shared/components/SEO';
 import { ScrollToTop } from '@/shared/components/ScrollToTop';
 
 export const MembershipPage = () => {
-  const { t, i18n } = useTranslation();
   const [isRegistered, setIsRegistered] = useState(false);
   const [memberData, setMemberData] = useState<any>(null);
 

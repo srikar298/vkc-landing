@@ -1,5 +1,4 @@
 import { motion } from 'framer-motion';
-import { useTranslation } from 'react-i18next';
 import { 
   Stethoscope, 
   Gavel, 
@@ -69,7 +68,6 @@ const PROFESSIONALS = [
 ];
 
 export const ProfessionalsHub = () => {
-  const { i18n } = useTranslation();
 
   return (
     <div className="space-y-12">

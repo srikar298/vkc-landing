@@ -160,7 +160,7 @@ export const LegendsGallery = () => {
               </p>
            </div>
 
-           <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
+           <div className="grid grid-cols-2 md:grid-cols-4 gap-8 md:gap-12">
               {mentions.map((mention, i) => (
                 <div key={i} className="group p-6 bg-stone-50 rounded-2xl border border-stone-100 hover:border-saffron-200 transition-all flex flex-col items-center text-center">
                    <div className="w-16 h-16 rounded-full overflow-hidden border-2 border-white shadow-sm mb-4 group-hover:scale-110 transition-transform bg-stone-200">

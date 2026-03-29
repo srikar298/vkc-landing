@@ -223,8 +223,8 @@ export function HeroFiveSons() {
               
 
 
-              {/* Senior UI/UX: Legibility Layer */}
-              <div className="absolute inset-0 bg-gradient-to-t from-white via-white/5 to-transparent pointer-events-none" />
+              {/* Senior UI/UX: Legibility Layer - Subtle dark gradient */}
+              <div className="absolute inset-0 bg-gradient-to-t from-stone-950/60 via-stone-950/5 to-transparent pointer-events-none" />
 
               {/* Content Container */}
               <div className="absolute inset-0 flex flex-col justify-end p-8 md:p-12">
@@ -237,7 +237,7 @@ export function HeroFiveSons() {
                   }}
                   className="absolute inset-x-0 bottom-12 flex flex-col items-center pointer-events-none px-6"
                 >
-                  <h2 className={`text-xl md:text-2xl font-black text-stone-900 uppercase tracking-tighter text-center leading-none drop-shadow-sm ${i18n.language === 'te' ? 'font-ramaraja' : i18n.language === 'hi' ? 'font-rozha' : 'font-outfit'}`}>
+                  <h2 className={`text-xl md:text-2xl font-black text-white uppercase tracking-tighter text-center leading-none drop-shadow-[0_2px_4px_rgba(0,0,0,0.5)] ${i18n.language === 'te' ? 'font-ramaraja' : i18n.language === 'hi' ? 'font-rozha' : 'font-outfit'}`}>
                     {son_data.name.replace(/^(SRI |శ్రీ |श्री |Sri )/i, '')}
                   </h2>
                 </motion.div>
@@ -249,25 +249,25 @@ export function HeroFiveSons() {
                       initial={{ opacity: 0, y: 100 }}
                       animate={{ opacity: 1, y: 0 }}
                       exit={{ opacity: 0, scale: 0.9 }}
-                      className="bg-white/80 backdrop-blur-2xl p-6 md:p-8 rounded-[2rem] md:rounded-[3rem] border border-white shadow-[0_20px_50px_rgba(0,0,0,0.1)] mb-4"
+                      className="bg-stone-900/60 backdrop-blur-2xl p-5 md:p-8 rounded-[2rem] md:rounded-[3rem] border border-white/10 shadow-[0_20px_50px_rgba(0,0,0,0.3)] mb-4"
                     >
-                      <div className="mb-6 text-left">
+                      <div className="mb-4 md:mb-6 text-left">
                         <div className="flex items-center gap-3 mb-2">
                            <span className="w-8 h-[2px] bg-vermilion" />
                            <h3 className="text-vermilion text-[10px] md:text-xs font-bold uppercase tracking-widest font-outfit">
                              {son_data.craft}
                            </h3>
                         </div>
-                        <h2 className={`text-3xl md:text-4xl font-black text-stone-900 leading-tight ${i18n.language === 'te' ? 'font-ramaraja' : i18n.language === 'hi' ? 'font-rozha' : 'font-outfit'}`}>
-                          {son_data.name}
+                        <h2 className={`text-xl md:text-4xl font-black text-white leading-tight ${i18n.language === 'te' ? 'font-ramaraja' : i18n.language === 'hi' ? 'font-rozha' : 'font-outfit'}`}>
+                          {son_data.name.replace(/^(SRI |శ్రీ |Sri )/i, '')}
                         </h2>
                       </div>
 
-                      <div className="space-y-6">
-                        <div className="flex flex-col gap-2.5 items-start">
+                      <div className="space-y-4 md:space-y-6">
+                        <div className="flex flex-col gap-2 md:gap-2.5 items-start">
                           <div className="flex items-baseline gap-3">
                              <span className="text-[10px] font-black uppercase tracking-[0.2em] text-stone-400">Gotra</span>
-                             <span className="text-sm md:text-base font-black text-stone-900 uppercase tracking-widest leading-none">
+                             <span className="text-sm md:text-base font-black text-white uppercase tracking-widest leading-none">
                                {son_data.gotra}
                              </span>
                           </div>
@@ -279,7 +279,7 @@ export function HeroFiveSons() {
                           </div>
                         </div>
                         
-                        <p className="text-stone-700 font-medium text-sm md:text-base leading-relaxed text-pretty italic border-l-2 border-vermilion/10 pl-4">
+                        <p className="text-stone-300 font-medium text-sm md:text-base leading-relaxed text-pretty italic border-l-2 border-vermilion/30 pl-4">
                           "{son_data.desc}"
                         </p>
                       </div>
