@@ -1,0 +1,138 @@
+{
+  "nav": {
+    "about": "About",
+    "events": "Events",
+    "gallery": "Gallery",
+    "join": "Join Community",
+    "vision": "Vision",
+    "vision_path": "Our Path",
+    "vision_mandate": "Mission & Mandate",
+    "heritage": "Heritage",
+    "heritage_legacy": "Legacy & Crafts",
+    "legends": "Legends",
+    "legends_icons": "Icons of Excellence",
+    "knowledge": "Knowledge",
+    "directory": "Directory",
+    "network": "Network",
+    "events_calendar": "Calendar & Meetups",
+    "gallery_archive": "Photographic Archive"
+  },
+  "hero": {
+    "welcome": "Welcome to the Official Directory",
+    "title": "VISHWAKARMA",
+    "subtitle": "KNOWLEDGE CENTRE",
+    "description": "Preserving the divine craftsmanship of the Five Creators. Connect with thousands of registered artisans worldwide."
+  },
+  "heroSons": {
+    "manu": {
+      "name": "SRI MANU BRAHMA",
+      "craft": "Blacksmith (Iron)",
+      "gotra": "Sanaga Gotra",
+      "veda": "Rig Veda",
+      "desc": "The primordial fire. Manu Brahma bestowed the knowledge of metallurgy, forging the tools of civilization."
+    },
+    "maya": {
+      "name": "SRI MAYA BRAHMA",
+      "craft": "Carpenter (Wood)",
+      "gotra": "Sanatana Gotra",
+      "veda": "Yajur Veda",
+      "desc": "Master of sacred geometry. Maya Brahma crafted the intricate woodworks, chariots, and structures of the epics."
+    },
+    "thwashta": {
+      "name": "SRI TVASHTAR BRAHMA",
+      "craft": "Metal-smith (Brass/Alloys)",
+      "gotra": "Ahabhuna Gotra",
+      "veda": "Sama Veda",
+      "desc": "The master of non-ferrous alloys. Tvashtar Brahma crafted divine vessels, intricate gears, and weapons."
+    },
+    "shilpi": {
+      "name": "SRI SHILPI BRAHMA",
+      "craft": "Sculptor (Stone)",
+      "gotra": "Prathna Gotra",
+      "veda": "Atharva Veda",
+      "desc": "The eternal sculptor. Shilpi Brahma bestowed the science of Vastu and divine stone artistry."
+    },
+    "vishwajna": {
+      "name": "SRI VISHVAJNA BRAHMA",
+      "craft": "Goldsmith (Gold/Jewelry)",
+      "gotra": "Suparna Gotra",
+      "veda": "Pranava Veda",
+      "desc": "The luminous jeweler. Vishvajna Brahma crafts the solar brilliance and divine ornaments."
+    }
+  },
+  "about": {
+    "badge": "Preserving Heritage, Powering Futures",
+    "title": "About Vishwa Karma Knowledge Centre",
+    "heroDesc": "Dedicated to the recognition, skill upgradation, and holistic support of traditional artisans and craftspeople in South India.",
+    "description": "Dedicated to the preservation and promotion of Vishwakarma heritage, craftsmanship, and ancient technical wisdom. Our centre serves as a hub for learning, community gathering, and spiritual growth.",
+    "mission": "Empowering our community through knowledge, education, and the celebration of our diverse traditions and expert skills.",
+    "card1Title": "Divine Architecture",
+    "card1Desc": "Preserving the sacred geometry and technical excellence of the universe's master architect.",
+    "card2Title": "Ancient Wisdom",
+    "card2Desc": "Documenting and sharing the technical knowledge found in the Sthapatya Veda and scriptures.",
+    "card3Title": "Technical Heritage",
+    "card3Desc": "Celebrating generations of precision, craftsmanship, and vocational mastery in our community.",
+    "regionalTitle": "Empowering Andhra Pradesh & Telangana",
+    "telanganaHub": "Telangana Registration Hub",
+    "telanganaDesc": "With over 2.8 lakh registrations and 85+ active training centers across 26 districts, we are leading the transformation of traditional trades in Telangana.",
+    "andhraOutreach": "Andhra Pradesh Outreach",
+    "andhraDesc": "Deeply rooted in districts like Konaseema and Vizianagaram, focusing on specialized training for Malakaar, Washermen, and other essential heritage trades.",
+    "registrations": "Registrations",
+    "certified": "Certified Recognition",
+    "skillUp": "Skill Upgradation",
+    "centers": "Centers",
+    "benefitsTitle": "Mission Benefits",
+    "benefit1Title": "Recognition",
+    "benefit1Desc": "PM Vishwakarma Certificate and ID Card for every artisan.",
+    "benefit2Title": "Training",
+    "benefit2Desc": "Basic and Advanced skill training with ₹500/day stipend.",
+    "benefit3Title": "Toolkit Grant",
+    "benefit3Desc": "₹15,000 grant for purchasing modern toolkits.",
+    "benefit4Title": "Credit Support",
+    "benefit4Desc": "Collateral-free loans up to ₹3 Lakh at 5% interest.",
+    "joinTitle": "Join the Vishwakarma Mission",
+    "joinDesc": "We invite artisans from all 18 traditional trades to join the Knowledge Centre and build a prosperous future together.",
+    "registerNow": "Register Now"
+  },
+  "events": {
+    "title": "Upcoming Events",
+    "subtitle": "Join us in celebrating our culture and traditions."
+  },
+  "gallery": {
+    "title": "Media Gallery",
+    "heritage": "Vishwa Karma Heritage",
+    "viewGoogle": "View on Google Photos",
+    "expand": "Expand",
+    "noPhotos": "No photos loaded yet"
+  },
+  "footer": {
+    "description": "Empowering the Vishwakarma community through technical excellence and cultural preservation.",
+    "quickLinks": "Quick Links",
+    "history": "Our History",
+    "calendar": "Calendar",
+    "media": "Media Library",
+    "contactUs": "Contact Us",
+    "contact": "Contact",
+    "address": "Main Road, Community Hall Area",
+    "rights": "All rights reserved."
+  },
+  "heritage": {
+    "nav": {
+      "roots": "Vedic Roots",
+      "exhibits": "Gallery of Mastery",
+      "engineering": "Engineering Secrets"
+    },
+    "kulas": {
+      "manu": "Blacksmith (Manu)",
+      "maya": "Carpenter (Maya)",
+      "twashta": "Metal-smith (Twashta)",
+      "shilpi": "Sculptor (Shilpi)",
+      "vishvajnya": "Goldsmith (Vishvajnya)"
+    },
+    "exhibits": {
+      "technical_report": "Read Technical Report",
+      "collapse": "Collapse Details",
+      "masterpiece": "Masterpiece Exhibit"
+    }
+  }
+}

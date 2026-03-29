@@ -1,50 +1,40 @@
 import { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
+import { useTranslation } from 'react-i18next';
+import { Link } from 'react-router-dom';
 
-const SONS = [
-  {
-    id: 'manu',
-    name: 'MANU',
-    craft: 'The Master Forge / Iron',
-    desc: 'The primordial fire. Manu bestowed the knowledge of metallurgy, forging the unbreakable tools that built civilizations.',
-    image: 'https://images.unsplash.com/photo-1540544520-22c92e92c2ae?q=80&w=1200&auto=format&fit=crop',
-    color: 'from-orange-600/50 to-red-900/50',
+const SONS_KEYS = ['manu', 'maya', 'thwashta', 'shilpi', 'vishwajna'];
+
+const SONS_METADATA = {
+  manu: {
+    image: '/images/hero/manu.png',
+    color: 'from-orange-500/20 to-red-500/20',
+    borderColor: 'group-hover:border-orange-500/50'
   },
-  {
-    id: 'maya',
-    name: 'MAYA',
-    craft: 'The Divine Carpenter / Wood',
-    desc: 'Master of geometry and timber. Maya crafted the intricate woodworks, chariots, and the illusionary architecture of the epics.',
-    image: 'https://images.unsplash.com/photo-1511467687858-23d96c32e4ae?q=80&w=1200&auto=format&fit=crop',
-    color: 'from-amber-700/50 to-yellow-900/50',
+  maya: {
+    image: '/images/hero/maya.png',
+    color: 'from-amber-600/20 to-yellow-600/20',
+    borderColor: 'group-hover:border-amber-600/50'
   },
-  {
-    id: 'thwashta',
-    name: 'THWASHTA',
-    craft: 'The Architect of Alloys / Brass',
-    desc: 'The master of non-ferrous metals. Thwashta crafted divine vessels, intricate gears, and the weapons of the gods.',
-    image: 'https://images.unsplash.com/photo-1610634123528-98e9860b73c4?q=80&w=1200&auto=format&fit=crop',
-    color: 'from-yellow-500/50 to-orange-800/50',
+  thwashta: {
+    image: '/images/hero/thwashta.png',
+    color: 'from-blue-500/20 to-indigo-500/20',
+    borderColor: 'group-hover:border-blue-500/50'
   },
-  {
-    id: 'shilpi',
-    name: 'SHILPI',
-    craft: 'The Eternal Sculptor / Stone',
-    desc: 'Bringing life to granite. Shilpi bestowed the science of Vastu and the art of breathing divinity into cold stone pillars.',
-    image: 'https://images.unsplash.com/photo-1605446071477-8c88f33d7b43?q=80&w=1200&auto=format&fit=crop',
-    color: 'from-stone-500/50 to-zinc-800/50',
+  shilpi: {
+    image: '/images/hero/shilpi.png',
+    color: 'from-stone-500/20 to-slate-500/20',
+    borderColor: 'group-hover:border-stone-500/50'
   },
-  {
-    id: 'vishwajna',
-    name: 'VISHWAJNA',
-    craft: 'The Luminous Jeweler / Gold',
-    desc: 'The creator of brilliance. Vishwajna works with the solar elements, crafting delicate filigree and the crowns of deities.',
-    image: 'https://images.unsplash.com/photo-1620650212354-9a4f61dae38e?q=80&w=1200&auto=format&fit=crop',
-    color: 'from-yellow-300/50 to-amber-600/50',
+  vishwajna: {
+    image: '/images/hero/vishwajna.png',
+    color: 'from-yellow-400/20 to-gold-500/20',
+    borderColor: 'group-hover:border-yellow-500/50'
   }
-];
+};
 
 export function HeroFiveSons() {
+  const { t, i18n } = useTranslation();
   const [hoveredIndex, setHoveredIndex] = useState<number | null>(null);
   const [isMobile, setIsMobile] = useState(false);
 
@@ -57,106 +47,241 @@ export function HeroFiveSons() {
 
   const handleSnap = () => {
     if (navigator.vibrate) {
-      navigator.vibrate(30); // Mobile haptic feedback
+      navigator.vibrate(30); 
     }
   };
 
   return (
-    <section className="relative h-screen w-full bg-black overflow-hidden flex flex-col pt-20">
-      {/* Background Arching Presence - Lord Vishwakarma */}
-      <div 
-        className="absolute inset-0 bg-cover bg-center opacity-20 transition-all duration-1000"
-        style={{ backgroundImage: 'url(https://images.unsplash.com/photo-1534447677768-be436bb09401?q=80&w=2000&auto=format&fit=crop)' }}
-      />
-      <div className="absolute inset-0 bg-gradient-to-b from-black/80 via-black/40 to-black pointer-events-none" />
+    <section className="relative min-h-screen w-full bg-cream overflow-hidden flex flex-col pt-20 md:pt-28 lg:pt-32">
+      
+      {/* Background Texture - Subtle Marble/Parchment feel */}
+      <div className="absolute inset-0 opacity-40 mix-blend-multiply pointer-events-none" 
+           style={{ backgroundImage: `url("https://www.transparenttextures.com/patterns/marble-similar.png")` }} />
 
-      {/* Header Info */}
-      <div className="relative z-20 px-6 py-4 text-center md:pb-8 shrink-0">
-        <motion.h1 
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8 }}
-          className="text-4xl md:text-5xl font-bold font-outfit text-white mb-2 tracking-tight drop-shadow-lg"
+      {/* Decorative Rotating Mandalas */}
+      <motion.img 
+        src="/images/hero/mandala-motif.png"
+        initial={{ rotate: 0 }}
+        animate={{ rotate: 360 }}
+        transition={{ duration: 180, repeat: Infinity, ease: "linear" }}
+        className="absolute -top-32 -left-32 w-[600px] h-[600px] opacity-[0.15] pointer-events-none mix-blend-multiply z-0"
+      />
+      <motion.img 
+        src="/images/hero/mandala-motif.png"
+        initial={{ rotate: 0 }}
+        animate={{ rotate: -360 }}
+        transition={{ duration: 240, repeat: Infinity, ease: "linear" }}
+        className="absolute -bottom-48 -right-48 w-[800px] h-[800px] opacity-[0.12] pointer-events-none mix-blend-multiply z-0"
+      />
+
+      {/* Trilingual Regional Motifs Overlay */}
+      <AnimatePresence mode="wait">
+        {i18n.language === 'en' && (
+          <motion.div
+            key="en-motif"
+            initial={{ opacity: 0, scale: 1.1 }}
+            animate={{ opacity: 0.1, scale: 1 }}
+            exit={{ opacity: 0 }}
+            className="absolute inset-0 z-0 pointer-events-none mix-blend-multiply bg-no-repeat bg-right-top p-20"
+            style={{ backgroundImage: 'url(/images/hero/universal-motif.png)', backgroundSize: '35%' }}
+          />
+        )}
+        {i18n.language === 'te' && (
+          <motion.div
+            key="te-motif"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 0.15 }}
+            exit={{ opacity: 0 }}
+            className="absolute inset-0 z-0 pointer-events-none mix-blend-multiply bg-no-repeat bg-contain bg-right-bottom"
+            style={{ backgroundImage: 'url(/images/hero/kakatiya-thoranam.png)' }}
+          />
+        )}
+        {i18n.language === 'hi' && (
+          <motion.div
+            key="hi-motif"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 0.15 }}
+            exit={{ opacity: 0 }}
+            className="absolute inset-0 z-0 pointer-events-none mix-blend-multiply bg-no-repeat bg-center"
+            style={{ backgroundImage: 'url(/images/hero/nagara-shikhara.png)' }}
+          />
+        )}
+      </AnimatePresence>
+
+      {/* Top Context - Institutional Identity */}
+      <div className="relative z-20 w-full max-w-[1700px] mx-auto px-6 md:px-12 flex flex-col md:flex-row items-center md:items-start justify-center md:justify-start gap-10 md:gap-20 shrink-0 pb-10">
+        
+        {/* Left: Lord Vishwakarma Emblem */}
+        <motion.div 
+          initial={{ opacity: 0, scale: 0.9, rotate: -3 }}
+          animate={{ opacity: 1, scale: 1, rotate: 0 }}
+          transition={{ duration: 1, type: "spring" }}
+          className="w-56 h-72 md:w-[40%] md:h-[80vh] md:max-w-md shrink-0 relative rounded-xl md:rounded-[4rem] overflow-hidden shadow-[0_40px_100px_rgba(227,66,52,0.1)] ring-12 ring-white ring-offset-4 ring-offset-saffron-50 border-1 border-white group"
         >
-          The Divine Forge
-        </motion.h1>
-         <motion.p 
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ duration: 0.8, delay: 0.2 }}
-          className="text-saffron-500 font-medium tracking-widest uppercase text-xs md:text-sm mb-2"
-        >
-          Lord Vishwakarma & The Five Creators
-        </motion.p>
+          <img 
+            src="/images/hero/vishwakarma-bg.png" 
+            alt="Lord Vishwakarma Emblem"
+            className="w-full h-full object-cover object-center group-hover:scale-110 transition-transform duration-[3s] ease-out"
+          />
+          <div className="absolute inset-0 bg-gradient-to-t from-vermilion/30 via-transparent to-transparent pointer-events-none mix-blend-overlay" />
+        </motion.div>
+
+        {/* Right: Trilingual Typography */}
+        <div className="flex flex-col text-center md:text-left flex-1 md:max-w-[65%] pt-6 md:pt-16 relative">
+          <motion.div 
+            initial={{ opacity: 0, x: 20 }}
+            animate={{ opacity: 1, x: 0 }}
+            className="flex items-center justify-center md:justify-start gap-4 mb-6"
+          >
+            <span className="w-12 h-[2px] bg-vermilion" />
+            <p className="text-vermilion font-black tracking-[0.3em] uppercase text-xs md:text-sm">
+              {t('hero.welcome')}
+            </p>
+          </motion.div>
+
+          <motion.h1 
+            initial={{ opacity: 0, y: 30 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8, delay: 0.1 }}
+            className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl xl:text-8xl font-black font-outfit text-stone-900 mb-6 md:mb-8 tracking-tighter leading-[1.2] drop-shadow-sm"
+          >
+            {t('hero.title')}<br/>
+            <span className="text-vermilion">{t('hero.subtitle')}</span>
+          </motion.h1>
+
+          <motion.p 
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ duration: 1, delay: 0.3 }}
+            className="text-stone-600 text-base sm:text-lg md:text-xl lg:text-2xl leading-relaxed font-medium mx-auto md:mx-0 max-w-2xl text-pretty"
+          >
+            {t('hero.description')}
+          </motion.p>
+          
+          <motion.div 
+             initial={{ opacity: 0, y: 20 }}
+             animate={{ opacity: 1, y: 0 }}
+             transition={{ delay: 0.5 }}
+             className="flex flex-col sm:flex-row gap-4 md:gap-6 mt-8 md:mt-12 justify-center md:justify-start"
+          >
+            <Link to="/membership" className="group relative bg-vermilion text-white px-8 md:px-12 py-4 md:py-5 rounded-2xl font-black text-base md:text-lg overflow-hidden transition-all hover:scale-105 active:scale-95 shadow-[0_20px_50px_rgba(227,66,52,0.3)] block text-center">
+              <span className="relative z-10">{t('nav.join')}</span>
+              <div className="absolute inset-0 bg-gradient-to-r from-saffron to-vermilion opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+              <div className="absolute -inset-1 bg-white/20 blur-xl opacity-0 group-hover:opacity-100 transition-opacity duration-500 rounded-full" />
+            </Link>
+            <Link 
+              to="/heritage"
+              className="bg-white/40 backdrop-blur-md text-stone-900 px-8 md:px-10 py-4 md:py-5 rounded-2xl font-black text-base md:text-lg border-2 border-white/60 hover:bg-white/60 transition-all shadow-xl block text-center"
+            >
+              Explore Legacy
+            </Link>
+          </motion.div>
+        </div>
       </div>
 
       {/* Interactive Accordion / Carousel */}
-      <div className="relative z-10 flex-1 w-full max-w-[1600px] mx-auto overflow-x-auto snap-x snap-mandatory flex md:gap-1 pb-10 hide-scrollbar"
+      <div className="relative z-10 w-full max-w-[1700px] mx-auto mt-auto overflow-x-auto snap-x snap-mandatory flex md:gap-4 pt-10 pb-12 hide-scrollbar"
            onScroll={isMobile ? handleSnap : undefined}>
-        {SONS.map((son, index) => {
+        {SONS_KEYS.map((key, index) => {
+          const son_meta = SONS_METADATA[key as keyof typeof SONS_METADATA];
+          const heroSons = t('heroSons', { returnObjects: true }) as any;
+          const son_data = heroSons[key];
           const isActive = hoveredIndex === index;
+          
           return (
             <motion.div
-              key={son.id}
-              className={`flex-shrink-0 w-[85vw] md:w-auto h-[65vh] md:h-full snap-center rounded-2xl md:rounded-none overflow-hidden relative cursor-pointer mx-2 md:mx-0 group ${isActive ? 'ring-2 ring-saffron-500 ring-offset-2 ring-offset-black z-10' : 'z-0'}`}
-              style={{ flex: isMobile ? 'none' : isActive ? 5 : 1 }}
+              key={key}
+              className={`flex-shrink-0 w-[85vw] md:w-auto h-[45vh] md:h-[50vh] snap-center rounded-[3rem] overflow-hidden relative cursor-pointer mx-4 md:mx-0 group shadow-2xl transition-all duration-500 border-4 border-transparent ${son_meta.borderColor} ${isActive ? 'shadow-vermilion/10 ring-2 ring-vermilion/20' : 'hover:shadow-xl'}`}
+              style={{ flex: isMobile ? 'none' : isActive ? 3 : 1 }}
               onHoverStart={() => !isMobile && setHoveredIndex(index)}
               onHoverEnd={() => !isMobile && setHoveredIndex(null)}
               onClick={() => isMobile && setHoveredIndex(isActive ? null : index)}
               layout
-              transition={{ type: 'spring', stiffness: 300, damping: 30 }}
+              transition={{ type: 'spring', stiffness: 200, damping: 25 }}
             >
-              {/* Background Texture/Image */}
+              {/* Premium Background Layer */}
+              <div className="absolute inset-0 bg-stone-50 transition-colors duration-500" />
+              <div className={`absolute inset-0 bg-gradient-to-br ${son_meta.color} opacity-40 mix-blend-multiply transition-opacity duration-1000`} />
+
+              {/* Senior UI/UX: Rotating Divine Halo (Mandala) */}
               <motion.div 
-                className="absolute inset-0 bg-cover bg-center transition-transform duration-700 ease-out"
-                style={{ backgroundImage: `url(${son.image})` }}
-                animate={{ scale: isActive ? 1.05 : 1 }}
+                animate={{ rotate: isActive ? 360 : 0 }}
+                transition={{ duration: 40, repeat: Infinity, ease: "linear" }}
+                className={`absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-[120%] h-[120%] opacity-0 group-hover:opacity-10 transition-opacity duration-1000 pointer-events-none`}
+              >
+                <img src="/images/hero/mandala-motif.png" className="w-full h-full object-contain filter invert opacity-50" alt="" />
+              </motion.div>
+
+              {/* Son Portrait Image with Parallax Depth */}
+              <motion.img 
+                src={son_meta.image}
+                alt={son_data.name}
+                initial={{ scale: 1 }}
+                animate={{ scale: isActive ? 1.05 : 1, y: isActive ? -20 : 0 }}
+                className="absolute inset-0 w-full h-full object-contain filter drop-shadow-[0_30px_60px_rgba(0,0,0,0.15)] transition-all duration-700 group-hover:scale-105"
               />
               
-              {/* Gradient Overlay */}
-              <div className={`absolute inset-0 bg-gradient-to-t ${son.color} opacity-60 mix-blend-multiply`} />
-              <div className="absolute inset-0 bg-black/50 md:group-hover:bg-black/30 transition-colors duration-500" />
-              
-              {isActive && <div className="absolute inset-0 backdrop-blur-[2px] bg-black/30 md:bg-transparent transition-all duration-500" />}
+
+
+              {/* Senior UI/UX: Legibility Layer */}
+              <div className="absolute inset-0 bg-gradient-to-t from-white via-white/5 to-transparent pointer-events-none" />
 
               {/* Content Container */}
-              <div className="absolute inset-0 flex flex-col justify-end p-6 md:p-8">
-                {/* Vertical Name (Hidden when active on desktop) */}
-                {!isMobile && !isActive && (
-                  <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
-                    <h2 className="text-white/40 font-outfit text-3xl xl:text-4xl font-bold tracking-widest -rotate-90 whitespace-nowrap drop-shadow-xl transition-opacity duration-300">
-                      {son.name}
-                    </h2>
-                  </div>
-                )}
+              <div className="absolute inset-0 flex flex-col justify-end p-8 md:p-12">
+                {/* Inactive State Identity (Gold Saffron Honorifics) */}
+                <motion.div 
+                  initial={false}
+                  animate={{ 
+                    y: isActive ? -320 : 0,
+                    opacity: isActive ? 0 : 1 
+                  }}
+                  className="absolute inset-x-0 bottom-12 flex flex-col items-center pointer-events-none px-6"
+                >
+                  <h2 className={`text-xl md:text-2xl font-black text-stone-900 uppercase tracking-tighter text-center leading-none drop-shadow-sm ${i18n.language === 'te' ? 'font-ramaraja' : i18n.language === 'hi' ? 'font-rozha' : 'font-outfit'}`}>
+                    {son_data.name.replace(/^(SRI |శ్రీ |श्री |Sri )/i, '')}
+                  </h2>
+                </motion.div>
 
-                {/* Expanded Content */}
+                {/* Expanded Content (Bottom Sheet Meta) */}
                 <AnimatePresence>
-                  {(isActive || isMobile) && (
+                  {isActive && (
                     <motion.div
-                      initial={{ opacity: 0, y: 30 }}
+                      initial={{ opacity: 0, y: 100 }}
                       animate={{ opacity: 1, y: 0 }}
-                      exit={{ opacity: 0, y: 20 }}
-                      transition={{ duration: 0.4 }}
-                      className={`${!isActive && isMobile ? 'translate-y-full opacity-0' : 'translate-y-0 opacity-100'} transition-all duration-500 md:opacity-100 md:translate-y-0`}
+                      exit={{ opacity: 0, scale: 0.9 }}
+                      className="bg-white/80 backdrop-blur-2xl p-6 md:p-8 rounded-[2rem] md:rounded-[3rem] border border-white shadow-[0_20px_50px_rgba(0,0,0,0.1)] mb-4"
                     >
-                      <div className="bg-black/40 backdrop-blur-md p-6 rounded-xl border border-white/10 shadow-2xl">
-                        <h2 className="text-3xl md:text-5xl font-outfit font-bold text-white mb-2 drop-shadow-md">
-                          {son.name}
+                      <div className="mb-6 text-left">
+                        <div className="flex items-center gap-3 mb-2">
+                           <span className="w-8 h-[2px] bg-vermilion" />
+                           <h3 className="text-vermilion text-[10px] md:text-xs font-bold uppercase tracking-widest font-outfit">
+                             {son_data.craft}
+                           </h3>
+                        </div>
+                        <h2 className={`text-3xl md:text-4xl font-black text-stone-900 leading-tight ${i18n.language === 'te' ? 'font-ramaraja' : i18n.language === 'hi' ? 'font-rozha' : 'font-outfit'}`}>
+                          {son_data.name}
                         </h2>
-                        <h3 className="text-saffron-400 text-xs md:text-sm font-semibold uppercase tracking-wider mb-3">
-                          {son.craft}
-                        </h3>
-                        {isActive && (
-                          <motion.p 
-                            initial={{ opacity: 0 }}
-                            animate={{ opacity: 1 }}
-                            transition={{ duration: 0.4, delay: 0.1 }}
-                            className="text-zinc-200 text-sm md:text-base leading-relaxed"
-                          >
-                            {son.desc}
-                          </motion.p>
-                        )}
+                      </div>
+
+                      <div className="space-y-6">
+                        <div className="flex flex-col gap-2.5 items-start">
+                          <div className="flex items-baseline gap-3">
+                             <span className="text-[10px] font-black uppercase tracking-[0.2em] text-stone-400">Gotra</span>
+                             <span className="text-sm md:text-base font-black text-stone-900 uppercase tracking-widest leading-none">
+                               {son_data.gotra}
+                             </span>
+                          </div>
+                          <div className="flex items-baseline gap-3">
+                             <span className="text-[10px] font-black uppercase tracking-[0.2em] text-stone-400">Veda</span>
+                             <span className="text-sm md:text-base font-black text-vermilion uppercase tracking-widest leading-none">
+                               {son_data.veda}
+                             </span>
+                          </div>
+                        </div>
+                        
+                        <p className="text-stone-700 font-medium text-sm md:text-base leading-relaxed text-pretty italic border-l-2 border-vermilion/10 pl-4">
+                          "{son_data.desc}"
+                        </p>
                       </div>
                     </motion.div>
                   )}
@@ -166,6 +291,22 @@ export function HeroFiveSons() {
           );
         })}
       </div>
+      {/* Scroll Hint */}
+      <motion.div 
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ delay: 2, duration: 1 }}
+        className="absolute bottom-6 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 z-30 pointer-events-none"
+      >
+        <span className="text-[10px] font-black uppercase tracking-[0.4em] text-stone-400">Scroll</span>
+        <div className="w-[1px] h-12 bg-gradient-to-b from-stone-400 to-transparent relative overflow-hidden">
+          <motion.div 
+            animate={{ y: [-16, 48] }}
+            transition={{ duration: 2, repeat: Infinity, ease: "linear" }}
+            className="absolute top-0 left-0 w-full h-4 bg-vermilion"
+          />
+        </div>
+      </motion.div>
     </section>
   );
 }

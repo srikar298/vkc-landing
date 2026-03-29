@@ -7,6 +7,8 @@ export default {
   theme: {
     extend: {
       colors: {
+        turmeric: '#FFC000',
+        vermilion: '#E34234',
         saffron: {
           50: '#fff7ed',
           100: '#ffedd5',
@@ -31,6 +33,15 @@ export default {
           800: '#854d0e',
           900: '#713f12',
         }
+      },
+      fontFamily: {
+        outfit: ['Outfit', 'sans-serif'],
+        inter: ['Inter', 'sans-serif'],
+        ramaraja: ['Ramaraja', 'serif'],
+        rozha: ['"Rozha One"', 'serif'],
+        ntr: ['NTR', 'sans-serif'],
+        sahitya: ['Sahitya', 'serif'],
+        anek: ['"Anek Telugu"', 'sans-serif'],
       },
     },
   },
