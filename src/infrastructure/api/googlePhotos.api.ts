@@ -7,7 +7,7 @@ const PROXIES = [
   (url: string) => `https://corsproxy.io/?url=${encodeURIComponent(url)}`
 ];
 
-const CACHE_KEY = 'vkc-photos-cache';
+const CACHE_KEY = 'vkc-photos-cache-v3';
 const CACHE_TTL = 60 * 60 * 1000 * 6; // 6 hours
 
 /**
@@ -60,8 +60,8 @@ export async function fetchGooglePhotosAlbum(albumId: string) {
 
       if (links.size > 0) {
         const fetchedPhotos = Array.from(links).map(url => ({
-          original: `${url}=w1024`,
-          thumbnail: `${url}=w500`,
+          original: `${url}=w1600-h1600`,
+          thumbnail: `${url}=w600`,
           id: url.split('/').pop() || Math.random().toString(36).substring(7)
         }));
 
