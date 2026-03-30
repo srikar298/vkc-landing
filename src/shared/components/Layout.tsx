@@ -27,6 +27,17 @@ export const Layout = () => {
     document.documentElement.lang = i18n.language;
   }, [i18n.language]);
 
+  useEffect(() => {
+    if (isMenuOpen) {
+      document.body.style.overflow = 'hidden';
+    } else {
+      document.body.style.overflow = 'unset';
+    }
+    return () => {
+      document.body.style.overflow = 'unset';
+    };
+  }, [isMenuOpen]);
+
   return (
     <div className="min-h-screen font-sans selection:bg-saffron-200 bg-white flex flex-col">
       {/* Activity Bar */}
@@ -159,7 +170,7 @@ export const Layout = () => {
               initial={{ opacity: 0, height: 0 }}
               animate={{ opacity: 1, height: 'auto' }}
               exit={{ opacity: 0, height: 0 }}
-              className="md:hidden bg-white/95 backdrop-blur-2xl border-t border-stone-100 p-6 space-y-4 shadow-2xl overflow-hidden rounded-b-[2.5rem]"
+              className="md:hidden bg-white/95 backdrop-blur-2xl border-t border-stone-100 p-6 space-y-4 shadow-2xl overflow-y-auto max-h-[calc(100vh-80px)] rounded-b-[2.5rem]"
             >
               <div className="space-y-6">
                  <div>
@@ -265,9 +276,14 @@ export const Layout = () => {
                 <a href="#" className="hover:text-stone-500">Terms of Service</a>
                 <Link to="/admin" className="opacity-0">.</Link>
               </div>
-              <p className="text-[10px] font-black text-stone-700 uppercase tracking-widest">
-                © 2026 VKC. Designed for the Five Millennia.
-              </p>
+              <div className="flex flex-col items-end gap-2 text-right">
+                <p className="text-[10px] font-black text-stone-700 uppercase tracking-widest">
+                  © 2026 VKC. Designed for the Five Millennia.
+                </p>
+                <p className="text-[10px] font-black text-stone-600 uppercase tracking-widest">
+                  Developed by <a href="https://www.instagram.com/srikar298s/" target="_blank" rel="noreferrer" className="text-saffron-600 hover:text-saffron-400 transition-colors">Srikar</a>
+                </p>
+              </div>
             </div>
           </div>
         </div>
