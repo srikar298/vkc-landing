@@ -1,4 +1,5 @@
 import { motion } from 'framer-motion';
+import { useTranslation } from 'react-i18next';
 import { 
   GraduationCap, 
   BookOpen, 
@@ -41,6 +42,7 @@ const RESOURCES = [
 ];
 
 export const EducationHub = () => {
+  const { t } = useTranslation();
 
   return (
     <div className="space-y-16">
@@ -49,11 +51,17 @@ export const EducationHub = () => {
          <div className="space-y-4 max-w-2xl">
             <div className="inline-flex items-center gap-3 bg-emerald-50 text-emerald-600 px-4 py-1 rounded-full border border-emerald-100">
                <GraduationCap size={16} />
-               <span className="text-[10px] font-black uppercase tracking-widest text-emerald-600">Empowering the Future</span>
+               <span className="text-[10px] font-black uppercase tracking-widest text-emerald-600">{t('network.education.badge')}</span>
             </div>
-            <h2 className="text-4xl font-black text-stone-900 leading-tight">Scholarships & Career <span className="text-emerald-500">Acceleration</span></h2>
+            <h2 className="text-4xl font-black text-stone-900 leading-tight">
+               {t('network.education.title').split(' ').map((word, i) => 
+                 word.toLowerCase().includes('acceleration') ? (
+                   <span key={i} className="text-emerald-500"> {word} </span>
+                 ) : ` ${word} `
+               )}
+            </h2>
             <p className="text-stone-500 font-medium text-lg leading-relaxed">
-              We bridge the gap between traditional heritage and modern professional success by providing the resources and guidance our students need to excel.
+               {t('network.education.subtitle')}
             </p>
          </div>
       </div>
@@ -98,7 +106,7 @@ export const EducationHub = () => {
 
                <div className="pt-4">
                   <button className="w-full flex items-center justify-center gap-2 text-[10px] font-black uppercase tracking-widest py-3 bg-stone-50 rounded-xl hover:bg-stone-900 hover:text-white transition-all text-stone-900">
-                     Learn More <ExternalLink size={14} />
+                     {t('network.education.actions.learn_more')} <ExternalLink size={14} />
                   </button>
                </div>
             </div>
@@ -113,13 +121,17 @@ export const EducationHub = () => {
          </div>
          <div className="max-w-2xl space-y-8 relative z-10">
             <h3 className="text-3xl md:text-5xl font-black leading-tight">
-               Looking for <span className="text-stone-900">Career Guidance?</span>
+               {t('network.education.career_guidance.title').split(' ').map((word, i) => 
+                 word.toLowerCase().includes('guidance') ? (
+                   <span key={i} className="text-stone-900"> {word} </span>
+                 ) : ` ${word} `
+               )}
             </h3>
             <p className="text-emerald-100 text-lg font-medium leading-relaxed">
-               Connect with our community mentors for one-on-one sessions on engineering, medicine, and administrative services preparation.
+               {t('network.education.career_guidance.subtitle')}
             </p>
             <button className="bg-white text-emerald-600 px-10 py-5 rounded-2xl font-black text-xs uppercase tracking-widest hover:scale-105 active:scale-95 transition-all shadow-2xl">
-               Request Guidance <ArrowRight size={18} className="inline ml-2" />
+               {t('network.education.actions.request_guidance')} <ArrowRight size={18} className="inline ml-2" />
             </button>
          </div>
       </section>

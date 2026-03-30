@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
+import { useTranslation } from 'react-i18next';
 import { 
   Users, 
   Briefcase, 
@@ -15,20 +16,21 @@ import { ScrollToTop } from '@/shared/components/ScrollToTop';
 import { ProfessionalsHub, OfficialsDirectory, MatrimonyPortal, EducationHub } from '../components';
 
 export const NetworkHub = () => {
+  const { t } = useTranslation();
   const [activeTab, setActiveTab] = useState<'professionals' | 'officials' | 'matrimony' | 'education'>('professionals');
 
   const tabs = [
-    { id: 'professionals', label: 'Professionals Hub', icon: <Briefcase size={18} />, color: 'text-blue-600', bg: 'bg-blue-50' },
-    { id: 'officials', label: 'Officials Directory', icon: <Gavel size={18} />, color: 'text-saffron-600', bg: 'bg-saffron-50' },
-    { id: 'education', label: 'Education & Career', icon: <GraduationCap size={18} />, color: 'text-emerald-600', bg: 'bg-emerald-50' },
-    { id: 'matrimony', label: 'Community Matrimony', icon: <Heart size={18} />, color: 'text-pink-600', bg: 'bg-pink-50' }
+    { id: 'professionals', label: t('network.hub.tabs.professionals'), icon: <Briefcase size={18} />, color: 'text-blue-600', bg: 'bg-blue-50' },
+    { id: 'officials', label: t('network.hub.tabs.officials'), icon: <Gavel size={18} />, color: 'text-saffron-600', bg: 'bg-saffron-50' },
+    { id: 'education', label: t('network.hub.tabs.education'), icon: <GraduationCap size={18} />, color: 'text-emerald-600', bg: 'bg-emerald-50' },
+    { id: 'matrimony', label: t('network.hub.tabs.matrimony'), icon: <Heart size={18} />, color: 'text-pink-600', bg: 'bg-pink-50' }
   ];
 
   return (
     <div className="min-h-screen bg-stone-50 pt-32 pb-24 group">
       <SEO 
-        title="Professional Network Hub" 
-        description="Connect with Vishwakarma professionals, community leaders, and mentors across the globe."
+        title={t('network.hub.seo_title')} 
+        description={t('network.hub.seo_description')} 
       />
       <ScrollToTop />
 
@@ -38,13 +40,17 @@ export const NetworkHub = () => {
            <div className="space-y-4">
               <div className="flex items-center gap-3 bg-stone-900 text-white w-fit px-4 py-1 rounded-full">
                  <Users size={14} />
-                 <span className="text-[10px] font-black uppercase tracking-widest">Global Community Network</span>
+                 <span className="text-[10px] font-black uppercase tracking-widest">{t('network.hub.badge')}</span>
               </div>
               <h1 className="text-5xl md:text-6xl font-black text-stone-900 leading-tight font-display tracking-tight">
-                The <span className="text-vermilion underline decoration-vermilion/20 underline-offset-8">Unity</span> Engine
+                {t('network.hub.title').split(' ').map((word, i) => 
+                  word.toLowerCase() === 'unity' ? (
+                    <span key={i} className="text-vermilion underline decoration-vermilion/20 underline-offset-8"> {word} </span>
+                  ) : ` ${word} `
+                )}
               </h1>
               <p className="text-stone-600 text-lg md:text-xl font-medium max-w-2xl leading-relaxed">
-                A strategic ecosystem connecting our master artisans with the modern professional elite—doctors, engineers, and visionary leaders.
+                {t('network.hub.subtitle')}
               </p>
            </div>
            
@@ -53,7 +59,7 @@ export const NetworkHub = () => {
               <Search className="absolute left-5 top-1/2 -translate-y-1/2 text-stone-400 group-focus-within:text-vermilion transition-colors" size={18} />
               <input 
                 type="text"
-                placeholder="Find a mentor or leader..."
+                placeholder={t('network.hub.search_placeholder')}
                 className="w-full h-14 pl-14 pr-6 bg-white rounded-2xl border border-stone-200 focus:ring-2 focus:ring-vermilion transition-all font-medium text-stone-800 shadow-sm"
               />
            </div>
@@ -82,12 +88,12 @@ export const NetworkHub = () => {
         <div className="min-h-[600px] relative">
           <AnimatePresence mode="wait">
              <motion.div
-               key={activeTab}
-               initial={{ opacity: 0, y: 10 }}
-               animate={{ opacity: 1, y: 0 }}
-               exit={{ opacity: 0, y: -10 }}
-               transition={{ duration: 0.3 }}
-               className="w-full"
+                key={activeTab}
+                initial={{ opacity: 0, y: 10 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0, y: -10 }}
+                transition={{ duration: 0.3 }}
+                className="w-full"
              >
                 {activeTab === 'professionals' && <ProfessionalsHub />}
                 {activeTab === 'officials' && <OfficialsDirectory />}
@@ -102,17 +108,21 @@ export const NetworkHub = () => {
            <div className="absolute inset-0 opacity-10 bg-[url('https://www.transparenttextures.com/patterns/p6.png')]" />
            <div className="relative z-10 max-w-2xl mx-auto space-y-8">
               <h2 className="text-3xl md:text-5xl font-black text-white leading-tight">
-                Is Your Expertise <span className="text-turmeric">Missing?</span>
+                {t('network.hub.cta.title').split(' ').map((word, i) => 
+                  word.toLowerCase().includes('missing') ? (
+                    <span key={i} className="text-turmeric"> {word} </span>
+                  ) : ` ${word} `
+                )}
               </h2>
               <p className="text-stone-400 text-lg font-medium leading-relaxed">
-                Whether you are a Doctor, Engineer, or Community Leader, your mentorship can shape the next generation of Vishwakarma talent.
+                {t('network.hub.cta.subtitle')}
               </p>
               <div className="flex flex-wrap justify-center gap-6">
                 <button className="bg-vermilion text-white px-10 py-5 rounded-2xl font-black text-xs uppercase tracking-widest hover:bg-vermilion/90 transition-all shadow-xl shadow-vermilion/20 active:scale-95">
-                   List Your Profile
+                   {t('network.hub.cta.list_profile')}
                 </button>
                 <button className="bg-white/10 hover:bg-white/20 text-white border border-white/20 px-10 py-5 rounded-2xl font-black text-xs uppercase tracking-widest transition-all active:scale-95 backdrop-blur-md">
-                   Register as Mentor
+                   {t('network.hub.cta.register_mentor')}
                 </button>
               </div>
            </div>
@@ -121,3 +131,4 @@ export const NetworkHub = () => {
     </div>
   );
 };
+;

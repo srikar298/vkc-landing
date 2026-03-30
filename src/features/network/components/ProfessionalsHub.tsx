@@ -1,4 +1,5 @@
 import { motion } from 'framer-motion';
+import { useTranslation } from 'react-i18next';
 import { 
   Stethoscope, 
   Gavel, 
@@ -68,16 +69,17 @@ const PROFESSIONALS = [
 ];
 
 export const ProfessionalsHub = () => {
+  const { t } = useTranslation();
 
   return (
     <div className="space-y-12">
       <div className="flex flex-col md:flex-row justify-between items-center gap-6">
          <div className="space-y-1">
-            <h2 className="text-2xl font-black text-stone-900 leading-tight">Professional Mentors</h2>
-            <p className="text-stone-500 font-medium text-sm">Find experts in your field for career guidance and technical support.</p>
+            <h2 className="text-2xl font-black text-stone-900 leading-tight">{t('network.professionals.title')}</h2>
+            <p className="text-stone-500 font-medium text-sm">{t('network.professionals.subtitle')}</p>
          </div>
          <button className="flex items-center gap-2 text-[10px] font-black uppercase tracking-widest text-vermilion bg-vermilion/5 px-6 py-3 rounded-xl hover:bg-vermilion/10 transition-all border border-vermilion/10">
-            View All Experts <Linkedin size={14} />
+            {t('network.professionals.view_all')} <Linkedin size={14} />
          </button>
       </div>
 
@@ -113,13 +115,13 @@ export const ProfessionalsHub = () => {
               <div className="grid grid-cols-2 gap-6 py-6 border-y border-stone-50">
                  <div className="space-y-1">
                     <p className="text-[8px] font-black text-stone-400 uppercase tracking-widest flex items-center gap-2">
-                       <MapPin size={10} /> Location
+                       <MapPin size={10} /> {t('network.professionals.labels.location')}
                     </p>
                     <p className="text-xs font-bold text-stone-700">{prof.location}</p>
                  </div>
                  <div className="space-y-1">
                     <p className="text-[8px] font-black text-stone-400 uppercase tracking-widest flex items-center gap-2">
-                       <Clock size={10} /> Experience
+                       <Clock size={10} /> {t('network.professionals.labels.experience')}
                     </p>
                     <p className="text-xs font-bold text-stone-700">{prof.experience}</p>
                  </div>
@@ -127,7 +129,7 @@ export const ProfessionalsHub = () => {
 
               <div className="space-y-3">
                  <p className="text-[9px] font-black text-vermilion uppercase tracking-widest flex items-center gap-2">
-                    <GraduationCap size={12} /> Mentorship Focus
+                    <GraduationCap size={12} /> {t('network.professionals.labels.mentorship')}
                  </p>
                  <p className="text-sm text-stone-600 font-medium leading-relaxed italic border-l-2 border-stone-100 pl-4">
                     "{prof.mentorship}"
@@ -137,7 +139,7 @@ export const ProfessionalsHub = () => {
               <div className="flex gap-4 pt-4">
                  <button className="flex-1 bg-stone-900 text-white h-14 rounded-2xl flex items-center justify-center gap-3 font-black text-[10px] uppercase tracking-widest hover:bg-vermilion transition-all active:scale-95 shadow-lg group/btn">
                     <MessageCircle size={18} className="group-hover/btn:scale-110 transition-transform" />
-                    Request Mentor
+                    {t('network.professionals.actions.request')}
                  </button>
                  <button className="w-14 h-14 border border-stone-200 rounded-2xl flex items-center justify-center text-stone-400 hover:border-vermilion hover:text-vermilion transition-all active:scale-95">
                     <Linkedin size={20} />

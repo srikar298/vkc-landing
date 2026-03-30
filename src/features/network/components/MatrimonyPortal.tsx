@@ -1,3 +1,4 @@
+import { useTranslation } from 'react-i18next';
 import { 
   Heart, 
   ShieldCheck, 
@@ -14,6 +15,7 @@ const MOCK_PROFILES = [
 ];
 
 export const MatrimonyPortal = () => {
+  const { t } = useTranslation();
 
   return (
     <div className="space-y-16">
@@ -25,20 +27,24 @@ export const MatrimonyPortal = () => {
          <div className="md:w-1/2 space-y-8 relative z-10">
             <div className="inline-flex items-center gap-3 bg-white px-4 py-1.5 rounded-full text-rose-600 shadow-sm border border-rose-100">
                <Heart size={16} fill="currentColor" />
-               <span className="text-[10px] font-black uppercase tracking-widest">Trust-Based Matching</span>
+               <span className="text-[10px] font-black uppercase tracking-widest">{t('network.matrimony.badge')}</span>
             </div>
             <h2 className="text-4xl md:text-5xl font-black text-stone-900 font-display leading-tight">
-               Refined <span className="text-rose-500">Connections</span> for the Vishwakarma Community
+               {t('network.matrimony.title').split(' ').map((word, i) => 
+                 word.toLowerCase().includes('connections') ? (
+                   <span key={i} className="text-rose-500"> {word} </span>
+                 ) : ` ${word} `
+               )}
             </h2>
             <p className="text-stone-600 text-lg font-medium leading-relaxed">
-               A discreet, membership-only portal designed to connect individuals sharing common heritage, values, and professional aspirations.
+               {t('network.matrimony.subtitle')}
             </p>
             <div className="flex gap-4">
                <button className="bg-rose-600 text-white px-8 py-4 rounded-2xl font-black text-[10px] uppercase tracking-widest hover:bg-rose-700 transition-all shadow-xl shadow-rose-200 active:scale-95">
-                  Create Profile
+                  {t('network.matrimony.actions.create_profile')}
                </button>
                <button className="bg-white text-stone-900 border border-rose-100 px-8 py-4 rounded-2xl font-black text-[10px] uppercase tracking-widest hover:bg-rose-50 transition-all active:scale-95">
-                  Search Criteria
+                  {t('network.matrimony.actions.search_criteria')}
                </button>
             </div>
          </div>
@@ -61,9 +67,9 @@ export const MatrimonyPortal = () => {
       {/* Safety & Trust Section */}
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
          {[
-           { icon: <Lock className="text-blue-600" />, title: 'Absolute Privacy', desc: 'Photos and personal details are only visible to verified members.' },
-           { icon: <ShieldCheck className="text-emerald-600" />, title: 'Verified Backgrounds', desc: 'Every profile is cross-referenced with the VKC Membership Registry.' },
-           { icon: <Sparkles className="text-saffron-600" />, title: 'Hand-Picked Matches', desc: 'Strategic matchmaking based on educational and professional compatibility.' }
+           { icon: <Lock className="text-blue-600" />, title: t('network.matrimony.safety.privacy.title'), desc: t('network.matrimony.safety.privacy.desc') },
+           { icon: <ShieldCheck className="text-emerald-600" />, title: t('network.matrimony.safety.backgrounds.title'), desc: t('network.matrimony.safety.backgrounds.desc') },
+           { icon: <Sparkles className="text-saffron-600" />, title: t('network.matrimony.safety.matches.title'), desc: t('network.matrimony.safety.matches.desc') }
          ].map((item, i) => (
            <div key={i} className="bg-white p-8 rounded-[2.5rem] border border-stone-100 shadow-lg space-y-4">
               <div className="w-12 h-12 bg-stone-50 rounded-2xl flex items-center justify-center mb-2">
@@ -81,13 +87,13 @@ export const MatrimonyPortal = () => {
          <div className="max-w-2xl mx-auto space-y-8 relative z-10">
             <h3 className="text-3xl font-black leading-tight flex items-center justify-center gap-4">
                <Lock size={32} className="text-rose-500" />
-               Join to Access Full Profiles
+               {t('network.matrimony.lock.title')}
             </h3>
             <p className="text-stone-400 font-medium leading-relaxed">
-               For the safety and privacy of our community members, only registered VKC Identity Card holders can view full profiles and initiate contact.
+               {t('network.matrimony.lock.desc')}
             </p>
             <button className="bg-rose-600 text-white px-12 py-5 rounded-full font-black text-xs uppercase tracking-widest hover:bg-rose-700 transition-all shadow-2xl shadow-rose-600/20 flex items-center gap-3 mx-auto">
-               Register for Membership <ArrowRight size={18} />
+               {t('network.matrimony.actions.register_membership')} <ArrowRight size={18} />
             </button>
          </div>
       </section>

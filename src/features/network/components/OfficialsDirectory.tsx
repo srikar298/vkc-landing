@@ -1,4 +1,5 @@
 import { motion } from 'framer-motion';
+import { useTranslation } from 'react-i18next';
 import { 
   Gavel, 
   MapPin, 
@@ -50,13 +51,14 @@ const OFFICIALS = [
 ];
 
 export const OfficialsDirectory = () => {
+  const { t } = useTranslation();
 
   return (
     <div className="space-y-12">
       <div className="flex flex-col md:flex-row justify-between items-center gap-6">
          <div className="space-y-1 text-center md:text-left">
-            <h2 className="text-2xl font-black text-stone-900 leading-tight">Leaders & Representatives</h2>
-            <p className="text-stone-500 font-medium text-sm">Honoring those serving in high government and social positions.</p>
+            <h2 className="text-2xl font-black text-stone-900 leading-tight">{t('network.officials.title')}</h2>
+            <p className="text-stone-500 font-medium text-sm">{t('network.officials.subtitle')}</p>
          </div>
       </div>
 
@@ -88,28 +90,28 @@ export const OfficialsDirectory = () => {
                   <div className="flex items-start gap-4">
                      <Building2 size={16} className="text-stone-300 shrink-0 mt-1" />
                      <div className="space-y-0.5">
-                        <p className="text-[9px] font-black text-stone-400 uppercase tracking-widest">Department</p>
+                        <p className="text-[9px] font-black text-stone-400 uppercase tracking-widest">{t('network.officials.labels.department')}</p>
                         <p className="text-xs font-bold text-stone-800">{official.department}</p>
                      </div>
                   </div>
                   <div className="flex items-start gap-4">
                      <Award size={16} className="text-stone-300 shrink-0 mt-1" />
                      <div className="space-y-0.5">
-                        <p className="text-[9px] font-black text-stone-400 uppercase tracking-widest">Core Impact</p>
+                        <p className="text-[9px] font-black text-stone-400 uppercase tracking-widest">{t('network.officials.labels.impact')}</p>
                         <p className="text-xs font-bold text-stone-800">{official.impact}</p>
                      </div>
                   </div>
                   <div className="flex items-start gap-4">
                      <MapPin size={16} className="text-stone-300 shrink-0 mt-1" />
                      <div className="space-y-0.5">
-                        <p className="text-[9px] font-black text-stone-400 uppercase tracking-widest">Region</p>
+                        <p className="text-[9px] font-black text-stone-400 uppercase tracking-widest">{t('network.officials.labels.region')}</p>
                         <p className="text-xs font-bold text-stone-800">{official.location}</p>
                      </div>
                   </div>
                </div>
 
                <button className="w-full flex items-center justify-center gap-2 text-[10px] font-black uppercase tracking-widest py-3 border border-stone-100 rounded-xl hover:bg-stone-50 transition-all text-stone-400 hover:text-stone-900">
-                  Contact Office <ExternalLink size={14} />
+                  {t('network.officials.actions.contact')} <ExternalLink size={14} />
                </button>
             </div>
           </motion.div>
@@ -121,11 +123,11 @@ export const OfficialsDirectory = () => {
             <ShieldAlert size={28} className="md:w-8 md:h-8" />
          </div>
          <div className="flex-1 space-y-2">
-            <h4 className="text-xl md:text-2xl font-black text-stone-900">Community Advocacy & Rights</h4>
-            <p className="text-stone-600 font-medium text-sm">Join our legislative support group to track and advocate for Vishwakarma community rights and political representation.</p>
+            <h4 className="text-xl md:text-2xl font-black text-stone-900">{t('network.officials.advocacy_title')}</h4>
+            <p className="text-stone-600 font-medium text-sm">{t('network.officials.advocacy_subtitle')}</p>
          </div>
          <button className="w-full md:w-auto bg-stone-900 text-white px-10 py-5 rounded-2xl font-black text-xs uppercase tracking-widest flex items-center justify-center gap-3 hover:gap-6 transition-all">
-            Join Advocacy <ChevronRight size={18} />
+            {t('network.officials.actions.advocacy')} <ChevronRight size={18} />
          </button>
       </div>
     </div>

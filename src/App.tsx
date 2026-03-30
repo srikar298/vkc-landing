@@ -12,6 +12,8 @@ import { NetworkHub } from '@/features/network/pages/NetworkHub';
 import { EmpowermentPage } from '@/features/empowerment/pages/EmpowermentPage';
 import { Admin } from '@/features/admin/components/Admin';
 import { ScrollToTop } from '@/shared/components/ScrollToTop';
+import { FounderPage } from '@/features/home/pages/FounderPage';
+import { DonorsPage } from '@/features/community/pages/DonorsPage';
 
 function App() {
   return (
@@ -28,6 +30,8 @@ function App() {
           <Route path="legends" element={<LegendsPage />} />
           <Route path="network" element={<NetworkHub />} />
           <Route path="empowerment" element={<EmpowermentPage />} />
+          <Route path="founder" element={<FounderPage />} />
+          <Route path="donors" element={<DonorsPage />} />
           <Route path="events" element={<HomePage />} /> {/* Map to home sections for now */}
           <Route path="gallery" element={<HomePage />} />
         </Route>

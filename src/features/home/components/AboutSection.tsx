@@ -152,7 +152,7 @@ export const AboutSection = () => {
                   {t('about.telanganaDesc')}
                 </p>
                 <Link to="/vision" className="inline-flex items-center gap-4 text-vermilion text-xs font-black uppercase tracking-widest hover:gap-6 transition-all group">
-                   View Full Mandate <ArrowRight size={16} className="group-hover:translate-x-1 transition-transform" />
+                   {t('about.mandate_link' as any)} <ArrowRight size={16} className="group-hover:translate-x-1 transition-transform" />
                 </Link>
               </div>
             </motion.div>
@@ -166,7 +166,7 @@ export const AboutSection = () => {
             >
               <ShieldCheck className="text-stone-400" size={32} />
               <p className="text-[10px] font-bold text-stone-400 uppercase tracking-widest leading-tight">
-                Institutional Authority under VKC Governance Board
+                {t('about.authority' as any)}
               </p>
             </motion.div>
           </div>

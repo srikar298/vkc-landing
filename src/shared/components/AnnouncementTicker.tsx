@@ -20,11 +20,11 @@ export const AnnouncementTicker = () => {
 
   return (
     <div className="bg-vermilion text-white py-2 overflow-hidden border-b border-vermilion-700 relative z-[60]">
-      <div className="max-w-7xl mx-auto px-4 flex items-center gap-4">
+      <div className="max-w-7xl mx-auto px-4 flex items-center gap-2 md:gap-4">
         {/* Static Header */}
-        <div className="flex items-center gap-2 bg-white/10 px-3 py-1 rounded-full border border-white/20 whitespace-nowrap">
-          <Megaphone size={14} className="animate-bounce" />
-          <span className="text-[10px] font-black uppercase tracking-widest">{t('updates.latest', 'Latest Updates')}</span>
+        <div className="flex items-center gap-2 bg-white/10 px-2 md:px-3 py-1 rounded-full border border-white/20 whitespace-nowrap shrink-0">
+          <Megaphone size={12} className="animate-bounce shrink-0" />
+          <span className="text-[8px] md:text-[10px] font-black uppercase tracking-widest">{t('updates.latest', 'Latest Updates')}</span>
         </div>
 
         {/* Ticker Animation */}
