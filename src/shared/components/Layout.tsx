@@ -13,6 +13,7 @@ import {
   Flag,
   Calendar
 } from 'lucide-react';
+import { SocialIcon } from 'react-social-icons';
 import { LanguageSwitcher } from './LanguageSwitcher';
 import { JoinModal } from '@/features/onboarding/components/JoinModal';
 import { AnnouncementTicker } from './AnnouncementTicker';
@@ -124,7 +125,14 @@ export const Layout = () => {
                 </div>
               </div>
               <div className="flex items-center gap-4">
+                <div className="hidden lg:flex items-center gap-3 border-r border-stone-100 pr-4">
+                   <SocialIcon url="https://www.facebook.com/share/1baHGpUEMn/" target="_blank" rel="noreferrer" className="hover:scale-110 transition-transform" style={{ height: 26, width: 26 }} />
+                   <SocialIcon url="https://x.com/VishwakarmaKno1" target="_blank" rel="noreferrer" className="hover:scale-110 transition-transform" style={{ height: 26, width: 26 }} />
+                   <SocialIcon url="https://whatsapp.com/channel/0029VbAdkzmHbFVE587hs33I" target="_blank" rel="noreferrer" className="hover:scale-110 transition-transform" style={{ height: 26, width: 26 }} />
+                   <SocialIcon url="https://www.instagram.com/vishwakarma_knowledge_centre?utm_source=qr&igsh=Z3N2bjljd2toeGpj" target="_blank" rel="noreferrer" className="hover:scale-110 transition-transform" style={{ height: 26, width: 26 }} />
+                </div>
                 <LanguageSwitcher />
+                <Link to="/donors" className="hidden lg:block text-stone-500 hover:text-vermilion transition-colors font-black uppercase tracking-widest text-xs px-2">{t('donors.page_title' as any, 'Community Donors')}</Link>
                 <button 
                   onClick={() => setIsJoinModalOpen(true)}
                   className="bg-vermilion text-white px-8 py-2.5 rounded-full font-black hover:bg-vermilion/90 transition-all shadow-xl shadow-vermilion/20 active:scale-95 text-xs uppercase tracking-[0.2em]"
@@ -168,11 +176,12 @@ export const Layout = () => {
 
                  <div>
                     <h4 className="text-[10px] font-black text-stone-400 uppercase tracking-widest px-4 mb-2">{t('nav.network')}</h4>
-                    <div className="grid gap-2">
+                     <div className="grid gap-2">
                        <Link to="/events" onClick={() => setIsMenuOpen(false)} className="block px-6 py-4 text-stone-600 hover:bg-stone-50 rounded-2xl font-black text-sm uppercase tracking-widest transition-all">{t('nav.events')}</Link>
                        <Link to="/gallery" onClick={() => setIsMenuOpen(false)} className="block px-6 py-4 text-stone-600 hover:bg-stone-50 rounded-2xl font-black text-sm uppercase tracking-widest transition-all">{t('nav.gallery')}</Link>
-                    </div>
-                 </div>
+                       <Link to="/donors" onClick={() => setIsMenuOpen(false)} className="block px-6 py-4 text-stone-600 hover:bg-stone-50 rounded-2xl font-black text-sm uppercase tracking-widest transition-all text-vermilion">{t('donors.page_title' as any, 'Community Donors')}</Link>
+                     </div>
+                  </div>
               </div>
               <div className="pt-4">
                 <button 
@@ -188,7 +197,7 @@ export const Layout = () => {
       </nav>
 
       {/* Main Content Area */}
-      <main className="flex-1">
+      <main className="flex-1 overflow-x-hidden">
         <Outlet />
       </main>
 
@@ -197,8 +206,8 @@ export const Layout = () => {
         <div className="absolute bottom-0 right-0 w-96 h-96 bg-saffron-900/10 blur-[150px] rounded-full -z-0" />
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
           <div className="grid md:grid-cols-4 gap-12 mb-16">
-            <div className="col-span-1 md:col-span-2">
-              <div className="flex items-center gap-3 mb-8">
+            <div className="col-span-1 md:col-span-2 space-y-8">
+              <div className="flex items-center gap-3">
                 <div className="bg-vermilion p-2.5 rounded-xl shadow-lg shadow-vermilion/40">
                   <Hammer className="text-white w-6 h-6" />
                 </div>
@@ -207,29 +216,58 @@ export const Layout = () => {
               <p className="text-stone-400 leading-relaxed max-w-sm text-sm">
                 {t('footer.description')}
               </p>
+              <div className="flex gap-4">
+                <SocialIcon url="https://www.facebook.com/share/1baHGpUEMn/" target="_blank" rel="noreferrer" className="hover:scale-110 hover:-translate-y-1 transition-all shadow-sm rounded-full" style={{ height: 36, width: 36 }} />
+                <SocialIcon url="https://x.com/VishwakarmaKno1" target="_blank" rel="noreferrer" className="hover:scale-110 hover:-translate-y-1 transition-all shadow-sm rounded-full" style={{ height: 36, width: 36 }} />
+                <SocialIcon url="https://whatsapp.com/channel/0029VbAdkzmHbFVE587hs33I" target="_blank" rel="noreferrer" className="hover:scale-110 hover:-translate-y-1 transition-all shadow-sm rounded-full" style={{ height: 36, width: 36 }} />
+                <SocialIcon url="https://www.instagram.com/vishwakarma_knowledge_centre?utm_source=qr&igsh=Z3N2bjljd2toeGpj" target="_blank" rel="noreferrer" className="hover:scale-110 hover:-translate-y-1 transition-all shadow-sm rounded-full" style={{ height: 36, width: 36 }} />
+              </div>
             </div>
-            <div>
-              <h4 className="text-xs font-black mb-8 text-turmeric uppercase tracking-widest">{t('footer.quickLinks')}</h4>
-              <ul className="space-y-4 text-sm font-medium">
-                <li><Link to="/" className="text-stone-500 hover:text-white transition-colors">{t('footer.history')}</Link></li>
-                <li><Link to="/events" className="text-stone-500 hover:text-white transition-colors">{t('footer.calendar')}</Link></li>
-                <li><Link to="/gallery" className="text-stone-500 hover:text-white transition-colors">{t('footer.media')}</Link></li>
-                <li><a href="#" className="text-stone-500 hover:text-white transition-colors">{t('footer.contactUs')}</a></li>
-              </ul>
-            </div>
-            <div>
-              <h4 className="text-xs font-black mb-8 text-turmeric uppercase tracking-widest">{t('footer.contact')}</h4>
-              <p className="text-stone-400 mb-2 text-sm font-bold">Vishwa Karma Knowledge Centre</p>
-              <p className="text-stone-500 text-sm">{t('footer.address')}</p>
-              <p className="text-turmeric mt-6 font-black text-sm">info@vkc-community.org</p>
+
+            <div className="grid grid-cols-2 md:grid-cols-2 gap-8 col-span-1 md:col-span-2">
+              <div>
+                <h4 className="text-xs font-black mb-6 text-turmeric uppercase tracking-widest">Knowledge</h4>
+                <ul className="space-y-4 text-sm font-medium">
+                  <li><Link to="/vision" className="text-stone-500 hover:text-white transition-colors">Our Vision</Link></li>
+                  <li><Link to="/heritage" className="text-stone-500 hover:text-white transition-colors">Heritage Archive</Link></li>
+                  <li><Link to="/legends" className="text-stone-500 hover:text-white transition-colors">Hall of Legends</Link></li>
+                  <li><Link to="/knowledge" className="text-stone-500 hover:text-white transition-colors">Shastra Vault</Link></li>
+                </ul>
+              </div>
+              <div>
+                <h4 className="text-xs font-black mb-6 text-turmeric uppercase tracking-widest">Platform</h4>
+                <ul className="space-y-4 text-sm font-medium">
+                  <li><Link to="/directory" className="text-stone-500 hover:text-white transition-colors">Artisan Directory</Link></li>
+                  <li><Link to="/network" className="text-stone-500 hover:text-white transition-colors">Network Hub</Link></li>
+                  <li><Link to="/empowerment" className="text-stone-500 hover:text-white transition-colors">Empowerment</Link></li>
+                  <li><Link to="/founder" className="text-stone-500 hover:text-white transition-colors">The Founder</Link></li>
+                  <li><Link to="/donors" className="text-stone-500 hover:text-white transition-colors">{t('donors.page_title' as any, 'Community Donors')}</Link></li>
+                </ul>
+              </div>
             </div>
           </div>
-          <div className="pt-8 border-t border-stone-800/50 flex flex-col sm:flex-row justify-between items-center gap-4 text-[10px] sm:text-xs text-stone-600 font-bold">
-            <p>© 2026 {t('hero.title')} {t('hero.subtitle')}. {t('footer.rights')}</p>
-            <div className="flex gap-6">
-              <a href="#" className="hover:text-white transition-colors">Privacy</a>
-              <a href="#" className="hover:text-white transition-colors">Terms</a>
-              <Link to="/admin" className="text-stone-900/10 hover:text-stone-700 transition-colors">.</Link>
+
+          <div className="grid md:grid-cols-2 gap-12 pt-16 border-t border-stone-800/50">
+            <div>
+              <h4 className="text-xs font-black mb-6 text-turmeric uppercase tracking-widest">Connect</h4>
+              <p className="text-stone-400 mb-2 text-sm font-bold">Vishwa Karma Knowledge Centre</p>
+              <p className="text-stone-500 text-sm leading-relaxed max-w-xs">{t('footer.address')}</p>
+              <p className="text-turmeric mt-4 font-black text-sm">info@vkc-community.org</p>
+            </div>
+            <div className="flex flex-col md:items-end justify-center gap-6">
+              <div className="flex gap-8 text-xs font-bold text-stone-500 uppercase tracking-widest">
+                <Link to="/events" className="hover:text-white transition-colors">Events</Link>
+                <Link to="/gallery" className="hover:text-white transition-colors">Gallery</Link>
+                <a href="#" className="hover:text-white transition-colors">Contact</a>
+              </div>
+              <div className="flex gap-6 text-[10px] font-black text-stone-700 uppercase tracking-widest">
+                <a href="#" className="hover:text-stone-500">Privacy Policy</a>
+                <a href="#" className="hover:text-stone-500">Terms of Service</a>
+                <Link to="/admin" className="opacity-0">.</Link>
+              </div>
+              <p className="text-[10px] font-black text-stone-700 uppercase tracking-widest">
+                © 2026 VKC. Designed for the Five Millennia.
+              </p>
             </div>
           </div>
         </div>

@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useTranslation } from 'react-i18next';
 import { Link } from 'react-router-dom';
+import { SocialIcon } from 'react-social-icons';
 
 const SONS_KEYS = ['manu', 'maya', 'thwashta', 'shilpi', 'vishwajna'];
 
@@ -175,6 +176,27 @@ export function HeroFiveSons() {
             >
               Explore Legacy
             </Link>
+          </motion.div>
+          
+          <motion.div 
+             initial={{ opacity: 0, y: 20 }}
+             animate={{ opacity: 1, y: 0 }}
+             transition={{ delay: 0.6 }}
+             className="flex flex-col sm:flex-row gap-6 sm:gap-5 mt-8 md:mt-10 justify-center md:justify-start items-center"
+          >
+            <div className="flex gap-4 items-center sm:border-r sm:border-white/20 sm:pr-5">
+               <span className="text-[10px] font-black uppercase tracking-[0.3em] text-stone-400 mr-2">Follow Us</span>
+               <SocialIcon url="https://www.facebook.com/share/1baHGpUEMn/" target="_blank" rel="noreferrer" className="hover:scale-110 transition-transform shadow-sm rounded-full" style={{ height: 28, width: 28 }} />
+               <SocialIcon url="https://x.com/VishwakarmaKno1" target="_blank" rel="noreferrer" className="hover:scale-110 transition-transform shadow-sm rounded-full" style={{ height: 28, width: 28 }} />
+               <SocialIcon url="https://whatsapp.com/channel/0029VbAdkzmHbFVE587hs33I" target="_blank" rel="noreferrer" className="hover:scale-110 transition-transform shadow-sm rounded-full" style={{ height: 28, width: 28 }} />
+               <SocialIcon url="https://www.instagram.com/vishwakarma_knowledge_centre?utm_source=qr&igsh=Z3N2bjljd2toeGpj" target="_blank" rel="noreferrer" className="hover:scale-110 transition-transform shadow-sm rounded-full" style={{ height: 28, width: 28 }} />
+            </div>
+            <a 
+              href="#gallery" 
+              className="text-[10px] sm:text-xs font-black uppercase tracking-[0.2em] text-stone-300 hover:text-white flex items-center gap-2 transition-all hover:translate-x-1 border border-white/10 px-4 py-2 rounded-full hover:bg-white/5"
+            >
+              View Gallery <span className="text-saffron-500">→</span>
+            </a>
           </motion.div>
         </div>
       </div>
