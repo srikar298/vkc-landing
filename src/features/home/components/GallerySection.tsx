@@ -18,7 +18,7 @@ export const GallerySection = () => {
   const [photos, setPhotos] = useState<Record<string, string>[]>([]);
   const [loadingPhotos, setLoadingPhotos] = useState(true);
   
-  const [visibleCount, setVisibleCount] = useState(8);
+  const [visibleCount, setVisibleCount] = useState(12);
   const [lightboxOpen, setLightboxOpen] = useState(false);
   const [lightboxIndex, setLightboxIndex] = useState(0);
 
@@ -60,45 +60,84 @@ export const GallerySection = () => {
         </div>
 
         {loadingPhotos ? (
-          <div className="columns-1 sm:columns-2 lg:columns-3 xl:columns-4 gap-4 sm:gap-6 space-y-4 sm:space-y-6 animate-pulse">
-            {[...Array(8)].map((_, i) => (
-              <div key={i} className="bg-stone-50 rounded-3xl h-64 break-inside-avoid" style={{ height: `${Math.floor(Math.random() * (400 - 200 + 1) + 200)}px` }} />
-            ))}
+          <div className="flex flex-col gap-4 sm:gap-6">
+            <div className="w-full h-[40vh] sm:h-[60vh] max-h-[600px] bg-stone-50 rounded-[1.5rem] sm:rounded-[2.5rem] animate-pulse" />
+            <div className="columns-2 lg:columns-3 xl:columns-4 gap-4 sm:gap-6 space-y-4 sm:space-y-6">
+              {[...Array(12)].map((_, i) => (
+                <div key={i} className="bg-stone-50 rounded-[1rem] sm:rounded-[1.5rem] break-inside-avoid animate-pulse" style={{ height: `${Math.floor(Math.random() * (400 - 200 + 1) + 200)}px` }} />
+              ))}
+            </div>
           </div>
         ) : photos.length > 0 ? (
           <>
-            <div className="columns-1 sm:columns-2 lg:columns-3 xl:columns-4 gap-4 sm:gap-6 space-y-4 sm:space-y-6">
-              {photos.slice(0, visibleCount).map((photo, index) => (
-                <motion.div 
-                  initial={{ opacity: 0, scale: 0.95 }}
-                  animate={{ opacity: 1, scale: 1 }}
-                  transition={{ duration: 0.4 }}
-                  key={photo.id} 
-                  className="group relative break-inside-avoid rounded-[1.5rem] sm:rounded-[2rem] overflow-hidden bg-stone-100 shadow-md hover:shadow-2xl transition-all duration-500 cursor-pointer"
-                  onClick={() => {
-                    setLightboxIndex(index);
-                    setLightboxOpen(true);
-                  }}
-                >
-                  <img
-                    src={photo.thumbnail}
-                    alt="Community Photo"
-                    className="w-full h-auto object-cover transition-all duration-700 group-hover:scale-105 group-hover:brightness-110"
-                    loading="lazy"
-                  />
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/10 to-transparent opacity-0 sm:group-hover:opacity-100 transition-all duration-500 flex items-end p-4 sm:p-6 sm:opacity-0 max-sm:opacity-100">
-                    <div className="w-full text-white text-[10px] sm:text-xs font-black flex items-center justify-center gap-2 bg-black/40 hover:bg-vermilion py-3 rounded-xl backdrop-blur-md transition-all border border-white/20">
-                      {t('gallery.expand', 'Expand')} <Maximize2 size={14} />
-                    </div>
+            <div className="flex flex-col gap-4 sm:gap-6">
+              {/* Highlighted Big Image */}
+              <motion.div 
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                className="group relative w-full h-[40vh] sm:h-[60vh] max-h-[600px] rounded-[1.5rem] sm:rounded-[2.5rem] overflow-hidden bg-stone-100 shadow-xl cursor-pointer"
+                onClick={() => {
+                  setLightboxIndex(0);
+                  setLightboxOpen(true);
+                }}
+              >
+                <img
+                  src={photos[0].original}
+                  alt="Featured Community Highlight"
+                  className="w-full h-full object-cover transition-all duration-700 group-hover:scale-105"
+                  loading="lazy"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent flex items-end p-6 sm:p-10 pointer-events-none">
+                  <div>
+                    <h3 className="text-white text-xl sm:text-3xl font-black mb-2">{t('gallery.featured', 'Community Highlight')}</h3>
+                    <p className="text-white/80 text-xs sm:text-sm font-bold uppercase tracking-widest">{t('gallery.click_to_expand', 'Click to expand gallery')}</p>
                   </div>
-                </motion.div>
-              ))}
+                </div>
+              </motion.div>
+
+              {/* Masonry Layout for remaining images */}
+              <div className="columns-2 lg:columns-3 xl:columns-4 gap-4 sm:gap-6 space-y-4 sm:space-y-6 mt-2">
+                {photos.slice(1, visibleCount).map((photo, index) => (
+                  <motion.div 
+                    initial={{ opacity: 0, scale: 0.95 }}
+                    animate={{ opacity: 1, scale: 1 }}
+                    transition={{ duration: 0.4 }}
+                    key={photo.id} 
+                    className="group relative break-inside-avoid rounded-[1rem] sm:rounded-[1.5rem] overflow-hidden bg-stone-100 shadow-sm hover:shadow-xl transition-all duration-500 cursor-pointer inline-block w-full"
+                    onClick={() => {
+                      setLightboxIndex(index + 1);
+                      setLightboxOpen(true);
+                    }}
+                  >
+                    <img
+                      src={photo.thumbnail}
+                      alt="Community Photo"
+                      className="w-full h-auto block transition-all duration-700 group-hover:scale-105 group-hover:brightness-110"
+                      loading="lazy"
+                    />
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/10 to-transparent opacity-0 sm:group-hover:opacity-100 transition-all duration-500 flex items-end p-3 sm:p-4 sm:opacity-0 max-sm:opacity-100">
+                      <div className="w-full text-white text-[10px] font-black flex items-center justify-center gap-2 bg-black/40 hover:bg-vermilion py-2 rounded-xl backdrop-blur-md transition-all border border-white/20">
+                        <Maximize2 size={14} />
+                      </div>
+                    </div>
+                  </motion.div>
+                ))}
+                
+                {/* Dynamic Empty Padded Placeholders for Masonry */}
+                {[...Array(Math.max(0, visibleCount - photos.length))].map((_, i) => (
+                  <div key={`placeholder-${i}`} className="bg-stone-50 rounded-[1rem] sm:rounded-[1.5rem] border-2 border-dashed border-stone-200 aspect-[4/3] flex items-center justify-center flex-col gap-3 break-inside-avoid w-full inline-block">
+                    <ImageIcon className="text-stone-300" size={32} />
+                    <span className="text-stone-400 text-[10px] sm:text-xs font-bold uppercase tracking-widest text-center px-4 leading-tight">{t('gallery.coming_soon', 'More Coming Soon')}</span>
+                  </div>
+                ))}
+              </div>
             </div>
             
             {photos.length > visibleCount && (
               <div className="mt-16 text-center">
                 <button 
-                  onClick={() => setVisibleCount(prev => prev + 8)}
+                  onClick={() => setVisibleCount(prev => prev + 4)}
                   className="inline-flex items-center gap-3 bg-stone-900 text-white px-10 py-4 rounded-full font-black hover:bg-vermilion transition-all shadow-xl active:scale-95 text-xs uppercase tracking-widest"
                 >
                   Load More Photos

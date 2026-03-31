@@ -45,7 +45,7 @@ export const Layout = () => {
 
       {/* Navigation */}
       <nav className="sticky top-0 w-full z-50 bg-white/80 backdrop-blur-md border-b border-stone-100">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="max-w-[90rem] mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex justify-between h-20 items-center">
             <Link to="/" className="flex items-center gap-3 hover:opacity-80 transition-opacity">
               <div className="bg-vermilion p-2.5 rounded-xl shadow-lg shadow-vermilion/20">
@@ -201,6 +201,12 @@ export const Layout = () => {
                 >
                   {t("nav.join")}
                 </button>
+              </div>
+              <div className="pt-6 border-t border-stone-100 mt-6 flex justify-center gap-6 pb-4">
+                 <SocialIcon url="https://www.facebook.com/share/1baHGpUEMn/" target="_blank" rel="noreferrer" className="hover:scale-110 transition-transform shadow-sm rounded-full" style={{ height: 32, width: 32 }} />
+                 <SocialIcon url="https://x.com/VishwakarmaKno1" target="_blank" rel="noreferrer" className="hover:scale-110 transition-transform shadow-sm rounded-full" style={{ height: 32, width: 32 }} />
+                 <SocialIcon url="https://whatsapp.com/channel/0029VbAdkzmHbFVE587hs33I" target="_blank" rel="noreferrer" className="hover:scale-110 transition-transform shadow-sm rounded-full" style={{ height: 32, width: 32 }} />
+                 <SocialIcon url="https://www.instagram.com/vishwakarma_knowledge_centre?utm_source=qr&igsh=Z3N2bjljd2toeGpj" target="_blank" rel="noreferrer" className="hover:scale-110 transition-transform shadow-sm rounded-full" style={{ height: 32, width: 32 }} />
               </div>
             </motion.div>
           )}

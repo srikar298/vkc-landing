@@ -7,8 +7,8 @@ const PROXIES = [
   (url: string) => `https://corsproxy.io/?url=${encodeURIComponent(url)}`
 ];
 
-const CACHE_KEY = 'vkc-photos-cache-v3';
-const CACHE_TTL = 60 * 60 * 1000 * 6; // 6 hours
+const CACHE_KEY = 'vkc-photos-cache-v4';
+const CACHE_TTL = 15 * 60 * 1000; // 15 minutes
 
 /**
  * Extracts photo URLs from a public Google Photos shared album with caching.
