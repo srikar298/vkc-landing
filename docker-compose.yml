@@ -1,0 +1,23 @@
+services:
+  db:
+    image: postgres:16-alpine
+    container_name: vishwakarma-k-c-db
+    restart: always
+    environment:
+      POSTGRES_USER: ${POSTGRES_USER:-postgres}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-password}
+      POSTGRES_DB: ${POSTGRES_DB:-vishwakarma-k-c}
+    ports:
+      - "5433:5432"
+    volumes:
+      - vishwakarma-k-c-db-data:/var/lib/postgresql/data
+    networks:
+      - vishwakarma-k-c-net
+
+networks:
+  vishwakarma-k-c-net:
+    driver: bridge
+
+volumes:
+  vishwakarma-k-c-db-data:
+    driver: local
