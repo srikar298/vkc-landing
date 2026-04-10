@@ -1,7 +1,17 @@
 {
-  "files": [],
-  "references": [
-    { "path": "./tsconfig.app.json" },
-    { "path": "./tsconfig.node.json" }
-  ]
+  "compilerOptions": {
+    "target": "ESNext",
+    "module": "ESNext",
+    "moduleResolution": "Bundler",
+    "strict": true,
+    "skipLibCheck": true,
+    "esModuleInterop": true,
+    "allowSyntheticDefaultImports": true,
+    "baseUrl": ".",
+    "paths": {
+      "@vishwakarma-k-c/shared": ["libs/shared/src/index.ts"],
+      "@vishwakarma-k-c/db": ["libs/db/src/index.ts"]
+    }
+  },
+  "exclude": ["node_modules", "dist"]
 }
