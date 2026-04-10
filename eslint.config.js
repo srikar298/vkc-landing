@@ -3,24 +3,40 @@ import globals from 'globals'
 import reactHooks from 'eslint-plugin-react-hooks'
 import reactRefresh from 'eslint-plugin-react-refresh'
 import tseslint from 'typescript-eslint'
-import { defineConfig, globalIgnores } from 'eslint/config'
 
-export default defineConfig([
-  globalIgnores(['dist']),
+export default tseslint.config(
   {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      js.configs.recommended,
-      tseslint.configs.recommended,
-      reactHooks.configs.flat.recommended,
-      reactRefresh.configs.vite,
-    ],
+    ignores: ['dist', 'node_modules', '.nx'],
+  },
+  js.configs.recommended,
+  ...tseslint.configs.recommended,
+  {
+    // GENERIC TYPESCRIPT RULES (Backend & Libs)
+    files: ['**/*.ts'],
     languageOptions: {
       ecmaVersion: 2020,
+      globals: globals.node,
+    },
+    rules: {
+      '@typescript-eslint/no-unused-vars': ['error', { 'argsIgnorePattern': '^_', 'varsIgnorePattern': '^_' }],
+    },
+  },
+  {
+    // REACT SPECIFIC RULES (Web Hub)
+    files: ['apps/web-hub/**/*.{ts,tsx}'],
+    plugins: {
+      'react-hooks': reactHooks,
+      'react-refresh': reactRefresh,
+    },
+    languageOptions: {
       globals: globals.browser,
     },
     rules: {
-      '@typescript-eslint/no-unused-vars': ['error', { 'argsIgnorePattern': '^_', 'varsIgnorePattern': '^_' }]
-    }
-  },
-])
+      ...reactHooks.configs.recommended.rules,
+      'react-refresh/only-export-components': [
+        'warn',
+        { allowConstantExport: true },
+      ],
+    },
+  }
+)
