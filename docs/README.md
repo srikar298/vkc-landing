@@ -4,9 +4,9 @@ This `docs/` directory contains the detailed, modular strategic breakdown for th
 
 To ensure clear alignment among stakeholders, documentation is split by perspective:
 
-*   [**PM Perspective**](./pm_perspective/) - Business Value, Strategy, Edge Cases, Monetization.
-*   [**UI/UX Perspective**](./ux_perspective/) - Information Architecture, Aesthetics, Accessibility, Interactions.
-*   [**Engineering Perspective**](./engineering_perspective/) - Technical Architecture, DB Schemas, API Specs.
+*   [**PM Perspective**](./pm_perspective/) - Business Value, User Personas, Strategy.
+*   [**UI/UX Perspective**](./ux_perspective/) - Information Architecture, Role-Based Visibility, Aesthetics.
+*   [**Engineering Perspective**](./engineering_perspective/) - Architecture, RBAC, Drizzle Strategy, Monorepo (Nx), **Modular Monolith Strategy**.
 
 ## Roadmap Phases
 1.  **Phase 1: Foundation & Identity** (Heritage & Registration)
