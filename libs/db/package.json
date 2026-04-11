@@ -2,18 +2,26 @@
   "name": "@vishwakarma-k-c/db",
   "private": true,
   "version": "0.0.0",
+  "type": "module",
   "main": "./src/index.ts",
   "types": "./src/index.ts",
+  "exports": {
+    ".": "./src/index.ts",
+    "./iam": "./src/schema/modules/iam/index.ts",
+    "./members": "./src/schema/modules/members/index.ts",
+    "./shared": "./src/schema/modules/shared/index.ts"
+  },
   "scripts": {
     "generate": "drizzle-kit generate",
     "push": "drizzle-kit push --force",
     "studio": "drizzle-kit studio",
     "seed": "tsx --env-file=../../.env src/seed.ts",
-    "test": "dotenv -e ../../.env -- vitest run"
+    "test": "dotenv -e ../../.env -- vitest run",
+    "typecheck": "tsc --noEmit"
   },
   "dependencies": {
     "@vishwakarma-k-c/shared": "workspace:*",
-    "drizzle-orm": "^0.40.0",
+    "drizzle-orm": "^0.40.1",
     "postgres": "^3.4.5",
     "zod": "^3.24.2"
   },

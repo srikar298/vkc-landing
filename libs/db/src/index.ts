@@ -1,28 +1,37 @@
 import { drizzle } from "drizzle-orm/postgres-js";
 import postgres from "postgres";
-import * as enums from "./schema/enums";
-import * as users from "./schema/users";
-import * as members from "./schema/members";
-import * as permissions from "./schema/permissions";
-
 import { config } from "@vishwakarma-k-c/shared";
 
-const schema = {
-  ...enums,
-  ...users,
+// Unified schema object for Drizzle initialization (Internal & Migrations)
+import * as iamEnums from "./schema/enums/iam";
+import * as expertEnums from "./schema/enums/experts";
+import * as commonEnums from "./schema/enums/common";
+import * as iam from "./schema/modules/iam";
+import * as members from "./schema/modules/members";
+import * as shared from "./schema/modules/shared";
+
+export const schema = {
+  ...iamEnums,
+  ...expertEnums,
+  ...commonEnums,
+  ...iam,
   ...members,
-  ...permissions,
+  ...shared,
 };
 
-// Database connection string is now validated via the shared config
-const queryClient = postgres(config.DATABASE_URL, {
+// Database connection
+const queryClient = postgres(config.db.url, {
   onnotice: () => {},
-  // Ensure the isolated schema is in the search path for resolving relations
-  options: "-c search_path=auth_mod,public",
 });
+
 export const db = drizzle(queryClient, { schema });
 
-export * from "./schema/enums";
-export * from "./schema/users";
-export * from "./schema/members";
-// Add other schemas as they are developed
+// Global Enums & Constants
+export * from "./schema/enums/iam";
+export * from "./schema/enums/experts";
+export * from "./schema/enums/common";
+
+// NOTE: Domain tables are now exported via modular paths:
+// @vishwakarma-k-c/db/iam
+// @vishwakarma-k-c/db/members
+// @vishwakarma-k-c/db/shared

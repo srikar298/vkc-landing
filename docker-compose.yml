@@ -14,10 +14,34 @@ services:
     networks:
       - vishwakarma-k-c-net
 
+  redis:
+    image: redis:7-alpine
+    container_name: vishwakarma-k-c-redis
+    restart: always
+    ports:
+      - "6380:6379"
+    networks:
+      - vishwakarma-k-c-net
+
+  redisinsight:
+    image: redis/redisinsight:latest
+    container_name: vishwakarma-k-c-redis-insight
+    restart: always
+    ports:
+      - "8001:5540"
+    volumes:
+      - vishwakarma-k-c-redis-insight-data:/data
+    networks:
+      - vishwakarma-k-c-net
+    depends_on:
+      - redis
+
 networks:
   vishwakarma-k-c-net:
     driver: bridge
 
 volumes:
   vishwakarma-k-c-db-data:
+    driver: local
+  vishwakarma-k-c-redis-insight-data:
     driver: local
