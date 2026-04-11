@@ -1,15 +1,18 @@
-import { pgSchema, integer, text, boolean } from "drizzle-orm/pg-core";
-import { users } from "./users";
-import { expertCategoryEnum } from "./enums";
+import { pgSchema, integer, text, boolean, timestamp } from "drizzle-orm/pg-core";
+import { users } from "../iam/users";
+import { expertCategoryEnum } from "../../enums/experts";
 
 export const memberSchema = pgSchema("member_mod");
 
 export const profiles = memberSchema.table("profiles", {
   id: integer("id").primaryKey().generatedAlwaysAsIdentity(),
-  userId: integer("user_id").notNull().references(() => users.id, { onDelete: 'cascade' }),
+  userId: integer("user_id")
+    .notNull()
+    .references(() => users.id, { onDelete: "cascade" }),
   isVerified: boolean("is_verified").default(false).notNull(),
   trade: text("trade").notNull(),
   district: text("district").notNull(),
+  deletedAt: timestamp("deleted_at"),
 });
 
 export const professionalProfiles = memberSchema.table("professional_profiles", {

@@ -1,0 +1,42 @@
+import { pgSchema, integer, varchar, timestamp, jsonb, text } from "drizzle-orm/pg-core";
+
+export const sharedSchema = pgSchema("shared_mod");
+
+/**
+ * Transactional Outbox for Cross-Module Events
+ */
+export const outboxEvents = sharedSchema.table("outboxEvents", {
+  id: integer("id").primaryKey().generatedAlwaysAsIdentity(),
+  eventType: varchar("eventType", { length: 100 }).notNull(),
+  payload: jsonb("payload").notNull(),
+  status: varchar("status", { length: 20 }).default("PENDING").notNull(),
+  createdAt: timestamp("createdAt").defaultNow().notNull(),
+});
+
+/**
+ * Centralized Audit Logging for Mutations
+ */
+export const auditLogs = sharedSchema.table("auditLogs", {
+  id: integer("id").primaryKey().generatedAlwaysAsIdentity(),
+  actorId: integer("actorId"), // Loose FK to users.id to avoid circularity
+  action: varchar("action", { length: 50 }).notNull(), // e.g. 'CREATE', 'UPDATE', 'DELETE'
+  entityType: varchar("entityType", { length: 50 }).notNull(), // e.g. 'USER', 'PROFILE'
+  entityId: varchar("entityId", { length: 100 }).notNull(),
+  oldData: jsonb("oldData"),
+  newData: jsonb("newData"),
+  timestamp: timestamp("timestamp").defaultNow().notNull(),
+});
+
+/**
+ * Universal Verification Registry
+ * Manages TTL and state for OTPs and verification codes.
+ */
+export const otpVerifications = sharedSchema.table("otpVerifications", {
+  id: integer("id").primaryKey().generatedAlwaysAsIdentity(),
+  identityId: integer("identityId").notNull(), // Loose FK to identities.id
+  purpose: varchar("purpose", { length: 50 }).notNull(), // e.g. 'LOGIN', 'EMAIL_VERIFY'
+  codeHash: text("codeHash").notNull(), 
+  attempts: integer("attempts").default(0).notNull(),
+  expiresAt: timestamp("expiresAt").notNull(),
+  createdAt: timestamp("createdAt").defaultNow().notNull(),
+});
