@@ -3,7 +3,7 @@ import { config } from '../config';
 
 // Best Practice: Centralized logging configuration using validated config
 export const logger = pino({
-  level: config.LOG_LEVEL,
+  level: config.app.logLevel,
   transport: {
     target: 'pino-pretty',
     options: {
