@@ -1,37 +1,50 @@
 import { FastifyInstance, FastifyRequest, FastifyReply } from 'fastify';
 import fp from 'fastify-plugin';
 import { db } from '@vishwakarma-k-c/db';
+import { roles, rolePermissions, permissions as permissionsTable } from '@vishwakarma-k-c/db/iam';
 import { eq, and } from 'drizzle-orm';
-import { userRoles, rolePermissions, permissions as permissionsTable } from '@vishwakarma-k-c/db';
+import { 
+  authenticate, 
+  createPermissionGuard, 
+  JWTPayload,
+  PermissionChecker 
+} from '@vishwakarma-k-c/shared';
 
+/**
+ * Global Security Plugin for the Vishwakarma Backend
+ * Decorates the fastify instance with authentication and permission logic
+ */
 export default fp(async (fastify: FastifyInstance) => {
-  fastify.decorate('checkPermission', async (request: FastifyRequest, reply: FastifyReply, requiredPermission: string) => {
-    // 1. Get user from request (Added by Auth Middleware usually)
-    const userId = (request as any).user?.id;
-    if (!userId) {
-      return reply.code(401).send({ error: 'Unauthorized' });
-    }
-
-    // 2. Query DB for Permission check
-    // In a real SDE-3 app, this would be cached in Redis
-    const hasPermission = await db.select()
-      .from(userRoles)
-      .innerJoin(rolePermissions, eq(userRoles.roleId, rolePermissions.roleId))
+  // 1. Implementation of the permission checker using the Backend's DB access
+  const checkPermission: PermissionChecker = async (user, slug) => {
+    const hasPermission = await db.select({ id: permissionsTable.id })
+      .from(rolePermissions)
+      .innerJoin(roles, eq(rolePermissions.roleId, roles.id))
       .innerJoin(permissionsTable, eq(rolePermissions.permissionId, permissionsTable.id))
       .where(and(
-        eq(userRoles.userId, userId),
-        eq(permissionsTable.slug, requiredPermission)
+        eq(roles.name, user.role),
+        eq(permissionsTable.slug, slug)
       ))
       .limit(1);
 
-    if (hasPermission.length === 0) {
-      return reply.code(403).send({ error: 'Forbidden: Insufficient Permissions' });
-    }
-  });
+    return hasPermission.length > 0;
+  };
+
+  // 2. Initialize the shared guards with the backend-specific checker
+  const authorize = createPermissionGuard(checkPermission);
+
+  // 3. Decorate the fastify instance
+  fastify.decorate('authenticate', authenticate);
+  fastify.decorate('authorize', authorize);
 });
 
+// Type declaration for Fastify decorators
 declare module 'fastify' {
   interface FastifyInstance {
-    checkPermission: (request: FastifyRequest, reply: FastifyReply, requiredPermission: string) => Promise<void>;
+    authenticate: (request: FastifyRequest, reply: FastifyReply) => Promise<void>;
+    authorize: (slug: string) => (request: FastifyRequest, reply: FastifyReply) => Promise<void>;
+  }
+  interface FastifyRequest {
+    user?: JWTPayload;
   }
 }

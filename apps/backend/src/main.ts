@@ -1,23 +1,38 @@
-import Fastify from 'fastify';
-import { db } from '@vishwakarma-k-c/db';
-import { logger, config } from '@vishwakarma-k-c/shared';
-
-const server = Fastify({
-  logger: true,
-});
-
-server.get('/health', async () => {
-  return { status: 'ok', timestamp: new Date().toISOString() };
-});
+import { bootstrapApp } from "./app";
+import { config, logger } from "@vishwakarma-k-c/shared";
 
 const start = async () => {
+  const server = await bootstrapApp();
+
   try {
-    await server.listen({ port: config.PORT as number, host: '0.0.0.0' });
-    console.log(`Backend Modular Monolith running on http://localhost:${config.PORT}`);
+    const address = await server.listen({ 
+      port: config.app.port, 
+      host: "0.0.0.0" 
+    });
+    
+    logger.info(`🚀 Backend Modular Monolith running on ${address}`);
+    logger.info(`Environment: ${config.app.env}`);
   } catch (err) {
-    server.log.error(err);
+    logger.error({ err }, "Failed to start server");
     process.exit(1);
   }
+
+  // Graceful Shutdown Handler
+  const signals: NodeJS.Signals[] = ["SIGINT", "SIGTERM"];
+  signals.forEach((signal) => {
+    process.on(signal, async () => {
+      logger.info(`Received ${signal}, shutting down gracefully...`);
+      
+      try {
+        await server.close();
+        logger.info("Server closed successfully.");
+        process.exit(0);
+      } catch (err) {
+        logger.error({ err }, "Error during shutdown");
+        process.exit(1);
+      }
+    });
+  });
 };
 
 start();
