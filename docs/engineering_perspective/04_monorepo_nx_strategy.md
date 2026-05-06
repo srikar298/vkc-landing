@@ -21,7 +21,7 @@ Nx triggers Melos commands. This allows the Dart environment to remain "standard
 ---
 
 ## 3. The "Golden Path" Architecture
-To handle 31 modules and cross-platform clients, we adopt a domain-focused directory structure:
+To support an iterative modular growth and cross-platform clients, we adopt a domain-focused directory structure:
 
 ```text
 / (Root)

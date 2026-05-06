@@ -8,14 +8,20 @@ lerna-debug.log*
 
 # Dependencies
 node_modules
-pnpm-lock.yaml
+/.pnp
+.pnp.js
 
 # Build & Cache
 dist
 dist-ssr
+build
 .nx/cache
 .nx/workspace-data
 .vercel
+.next
+out
+coverage
+.cache
 
 # Environment
 .env
@@ -23,17 +29,51 @@ dist-ssr
 .env.development.local
 .env.test.local
 .env.production.local
+.env.*.local
+*.local
 
-# Drizzle
+# Security & Credentials
+*.pem
+*.key
+*.cert
+*.crt
+*.p12
+*.pfx
+*.keystore
+*.jks
+credentials.json
+client_secret.json
+id_rsa
+id_rsa.pub
+*.pub
+
+# Database
 libs/db/drizzle
+*.sqlite
+*.sqlite3
+*.db
 
-# Editor
+# OS Generated
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+
+# Editor & IDE
 .vscode/*
 !.vscode/extensions.json
+!.vscode/settings.json
 .idea
-.DS_Store
 *.suo
 *.ntvs*
 *.njsproj
 *.sln
 *.sw?
+
+# AI / Development Process
+GEMINI.md
+.cursorrules
+.cursorignore

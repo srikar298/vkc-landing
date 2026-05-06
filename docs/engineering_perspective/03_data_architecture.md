@@ -1,6 +1,6 @@
 # Data Architecture & Drizzle Best Practices
 
-VKC V2 uses **Drizzle ORM** with **PostgreSQL** as the core data engine. This combination ensures near-zero latency, serverless readiness, and total type safety for our 50+ database models.
+VKC V2 uses **Drizzle ORM** with **PostgreSQL** as the core data engine. This combination ensures near-zero latency, serverless readiness, and total type safety for our evolving set of database models.
 
 ## 1. Modular Schema Strategy
 Following the **Modular Monolith** architecture, we do not use a single `schema.ts`. Instead, we split tables into domain-focused files.
