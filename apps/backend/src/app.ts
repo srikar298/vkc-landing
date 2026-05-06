@@ -5,6 +5,7 @@ import cors from "@fastify/cors";
 import compress from "@fastify/compress";
 import rateLimit from "@fastify/rate-limit";
 import { config, logger, StandardRateLimit, idempotencyPlugin } from "@vishwakarma-k-c/shared";
+import securityPlugin from "./guards/permission.guard";
 import { bootstrapAuthModule } from "./modules/auth/bootstrap";
 
 /**
@@ -40,6 +41,9 @@ export async function bootstrapApp() {
 
   // 5. Enterprise Reliability: Idempotency
   await app.register(idempotencyPlugin);
+
+  // 6. Security Layer: Authentication & Authorization Guards
+  await app.register(securityPlugin);
 
   // 6. Observability Hooks (Tracing & Auditing)
   app.addHook("onRequest", async (request) => {

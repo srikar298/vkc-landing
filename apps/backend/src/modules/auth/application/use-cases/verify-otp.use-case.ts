@@ -12,11 +12,13 @@ export interface VerifyOtpCommand {
 }
 
 export class VerifyOtpUseCase {
-  private readonly tokenService = new TokenService();
+  private readonly tokenService: TokenService;
 
   constructor(
     private readonly authRepository: IAuthRepository
-  ) {}
+  ) {
+    this.tokenService = new TokenService(this.authRepository);
+  }
 
   public async execute(command: VerifyOtpCommand): Promise<Result<AuthTokens | { registerRequired: boolean, identifier: string }, Error>> {
     const { identifier, code, provider, reason } = command;

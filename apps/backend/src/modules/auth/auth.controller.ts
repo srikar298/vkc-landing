@@ -13,7 +13,10 @@ import { RequestOtpUseCase } from "./application/use-cases/request-otp.use-case"
 import { VerifyOtpUseCase } from "./application/use-cases/verify-otp.use-case";
 import { RefreshTokenUseCase } from "./application/use-cases/refresh-token.use-case";
 import { RegisterUserUseCase } from "./application/use-cases/register-user.use-case";
+import { GetMeUseCase } from "./application/use-cases/get-me.use-case";
 import { AuthPresentationMapper } from "./presentation/mappers/auth-presentation.mapper";
+import { db } from "@vishwakarma-k-c/db";
+import { permissions as permissionsTable } from "@vishwakarma-k-c/db/iam";
 
 /**
  * LLD: Auth Controller
@@ -24,7 +27,8 @@ export class AuthController {
     private readonly requestOtpUseCase: RequestOtpUseCase,
     private readonly verifyOtpUseCase: VerifyOtpUseCase,
     private readonly refreshTokenUseCase: RefreshTokenUseCase,
-    private readonly registerUserUseCase: RegisterUserUseCase
+    private readonly registerUserUseCase: RegisterUserUseCase,
+    private readonly getMeUseCase: GetMeUseCase
   ) {}
 
   /**
@@ -45,6 +49,16 @@ export class AuthController {
     fastify.post("/register", {
       config: { rateLimit: AuthRateLimit, idempotency: true }
     }, this.registerUser.bind(this));
+
+    // --- PROTECTED ROUTES ---
+
+    fastify.get("/me", {
+      preHandler: [fastify.authenticate]
+    }, this.getMe.bind(this));
+
+    fastify.get("/permissions", {
+      preHandler: [fastify.authenticate, fastify.authorize("iam:read_all")]
+    }, this.getAllPermissions.bind(this));
   }
 
   private async requestOtp(request: FastifyRequest, reply: FastifyReply) {
@@ -112,6 +126,36 @@ export class AuthController {
     return reply.status(200).send({ 
       success: true, 
       user: AuthPresentationMapper.toUserResponse(result.getValue()) 
+    });
+  }
+
+  private async getMe(request: FastifyRequest, reply: FastifyReply) {
+    // request.user is populated by authenticate decorator
+    const userId = request.user?.id;
+    if (!userId) return reply.status(401).send({ error: "Unauthorized" });
+
+    const result = await this.getMeUseCase.execute({ userId });
+
+    if (result.isFailure) {
+      return this.handleError(reply, result.getError());
+    }
+
+    const { user, permissions } = result.getValue();
+
+    return reply.status(200).send({
+      success: true,
+      user: AuthPresentationMapper.toUserResponse(user),
+      permissions
+    });
+  }
+
+  private async getAllPermissions(request: FastifyRequest, reply: FastifyReply) {
+    // Demonstrating simple unauthorized data fetch for admins
+    const all = await db.select().from(permissionsTable);
+    
+    return reply.status(200).send({
+      success: true,
+      permissions: all
     });
   }
 

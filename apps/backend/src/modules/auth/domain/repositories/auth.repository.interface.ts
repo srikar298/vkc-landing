@@ -7,6 +7,7 @@ import { OtpCode } from "../value-objects/otp-code.vo";
 export interface IAuthRepository {
   findByIdentifier(provider: string, identifier: string): Promise<Identity | null>;
   findUserById(userId: UserId): Promise<User | null>;
+  findByPublicId(publicId: string): Promise<User | null>;
   createUser(role: string): Promise<User>;
   createIdentity(userId: UserId, provider: string, identifier: string): Promise<Identity>;
   updateIdentity(identity: Identity): Promise<void>;

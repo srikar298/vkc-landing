@@ -1,5 +1,5 @@
 import { JWTService, logger, cacheProvider } from "@vishwakarma-k-c/shared";
-import { User, UserId } from "../../domain/entities/user-identity.entity";
+import { IAuthRepository } from "../../domain/repositories/auth.repository.interface";
 
 export interface AuthTokens {
   accessToken: string;
@@ -8,6 +8,10 @@ export interface AuthTokens {
 
 export class TokenService {
   private static readonly REFRESH_TTL = 7 * 24 * 60 * 60; // 7 Days in seconds
+
+  constructor(
+    private readonly authRepository: IAuthRepository
+  ) {}
 
   /**
    * Issue a complete pair of tokens (Access + Refresh)
@@ -59,10 +63,18 @@ export class TokenService {
     // 2. Revoke the old JTI
     await cacheProvider.removeFromSet(sessionKey, payload.jti);
 
-    // 3. Issue new pair (Assume we have user info or fetch lean user)
-    // Note: In a full flow, we'd fetch the User to get their latest Role
-    // For now, we'll return a new pair for the ID
-    return this.issueAuthTokens({ publicId: payload.id, role: "MEMBER_BASIC" }); // Role should be resolved via Repository
+    // 3. Issue new pair with latest Identity/Roles
+    const user = await this.authRepository.findByPublicId(payload.id);
+    if (!user) {
+      logger.error({ userId: payload.id }, "User not found during token rotation. Revoking all sessions.");
+      await this.revokeAllSessions(payload.id);
+      return null;
+    }
+
+    return this.issueAuthTokens({ 
+      publicId: user.publicId, 
+      role: user.role 
+    });
   }
 
   public async revokeAllSessions(userId: string): Promise<void> {
