@@ -7,6 +7,17 @@ import rateLimit from "@fastify/rate-limit";
 import { config, logger, StandardRateLimit, idempotencyPlugin } from "@vishwakarma-k-c/shared";
 import securityPlugin from "./guards/permission.guard";
 import { bootstrapAuthModule } from "./modules/auth/bootstrap";
+import { bootstrapMembersModule } from "./modules/members/bootstrap";
+import { bootstrapFinanceModule } from "./modules/finance/bootstrap";
+import { bootstrapMatrimonyModule } from "./modules/matrimony/bootstrap";
+import { bootstrapProfessionalsModule } from "./modules/professionals/bootstrap";
+import { bootstrapCommunityModule } from "./modules/community/bootstrap";
+import { bootstrapHeritageModule } from "./modules/heritage/bootstrap";
+import { bootstrapEducationModule } from "./modules/education/bootstrap";
+import { bootstrapGovernanceModule } from "./modules/governance/bootstrap";
+import { bootstrapEmpowermentModule } from "./modules/empowerment/bootstrap";
+import { bootstrapMessagingModule } from "./modules/messaging/bootstrap";
+import { bootstrapSupportModule } from "./modules/support/bootstrap";
 
 /**
  * Modular App Composition Root
@@ -84,6 +95,17 @@ export async function bootstrapApp() {
 
     // Modules
     await bootstrapAuthModule(v1);
+    await bootstrapMembersModule(v1);
+    await bootstrapFinanceModule(v1);
+    await bootstrapMatrimonyModule(v1);
+    await bootstrapProfessionalsModule(v1);
+    await bootstrapCommunityModule(v1);
+    await bootstrapHeritageModule(v1);
+    await bootstrapEducationModule(v1);
+    await bootstrapGovernanceModule(v1);
+    await bootstrapEmpowermentModule(v1);
+    await bootstrapMessagingModule(v1);
+    await bootstrapSupportModule(v1);
     
   }, { prefix: "/api/v1" });
 
