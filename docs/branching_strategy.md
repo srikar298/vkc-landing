@@ -1,4 +1,4 @@
-# Branching Strategy — Vishwakarma Knowledge Centre (VKC)
+# Branching Strategy — Vishwakarma Nexus
 
 Adapted from GitFlow principles, simplified for a small, fast-moving web project built by a lean team.
 

@@ -1,6 +1,7 @@
-# React + TypeScript + Vite
+# Vishwakarma Nexus (Technical Core)
+> **Powered by Vishwakarma Knowledge Centre (VKC)**
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+**Vishwakarma Nexus** is the modular technical core for the **Vishwakarma Knowledge Centre (VKC)** platform expansion. It bridges 5,000 years of heritage with a modern, high-granularity digital architecture.
 
 Currently, two official plugins are available:
 
