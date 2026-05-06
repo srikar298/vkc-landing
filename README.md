@@ -1,7 +1,7 @@
-# Vishwakarma Nexus (Technical Core)
-> **Powered by Vishwakarma Knowledge Centre (VKC)**
+# Vishwakarma Knowledge Centre (VKC)
+> **Technical Core: Vishwakarma Nexus**
 
-**Vishwakarma Nexus** is the next-generation modular platform for the global Vishwakarma community. It bridges 5,000 years of traditional artisan heritage with modern digital empowerment, providing a high-granularity technical foundation for identity, networking, finance, and community growth.
+**Vishwakarma Knowledge Centre (VKC)** is the next-generation modular platform for the global Vishwakarma community. **Vishwakarma Nexus** serves as the technical modular core of this expansion, bridging 5,000 years of traditional artisan heritage with modern digital empowerment.
 
 ---
 
