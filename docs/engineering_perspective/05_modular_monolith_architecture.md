@@ -11,7 +11,21 @@ To ensure our modules remain truly independent, we follow strict interaction rul
 
 ---
 
-## 2. Communication Patterns
+## 2. Module Inventory (Granular)
+To support independent scaling and clear ownership, we organize the backend into the following granular modules:
+
+- **IAM (Identity & Access Management)**: Authentication, Session, and Role-based security.
+- **Members**: Core artisan/member profiles and Digital ID generation.
+- **Finance**: Payments, transactions, ledgers, and invoicing.
+- **Matrimony**: High-growth matchmaking engine.
+- **Professionals**: Directory listing for artisans and professional experts.
+- **Community**: Events, testimonials, and donor management.
+- **Heritage**: Divine CMS for historical records and scriptures.
+- **Support**: Inquiries, leads, and customer support.
+
+---
+
+## 3. Communication Patterns
 
 ### Internal API (Direct Calls)
 Used for synchronous interactions where immediate consistency is required.
