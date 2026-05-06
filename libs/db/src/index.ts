@@ -6,16 +6,24 @@ import { config } from "@vishwakarma-k-c/shared";
 import * as iamEnums from "./schema/enums/iam";
 import * as expertEnums from "./schema/enums/experts";
 import * as commonEnums from "./schema/enums/common";
+import * as financeEnums from "./schema/enums/finance";
 import * as iam from "./schema/modules/iam";
 import * as members from "./schema/modules/members";
+import * as finance from "./schema/modules/finance";
+import * as matrimony from "./schema/modules/matrimony";
+import * as professionals from "./schema/modules/professionals";
 import * as shared from "./schema/modules/shared";
 
 export const schema = {
   ...iamEnums,
   ...expertEnums,
   ...commonEnums,
+  ...financeEnums,
   ...iam,
   ...members,
+  ...finance,
+  ...matrimony,
+  ...professionals,
   ...shared,
 };
 
@@ -30,6 +38,7 @@ export const db = drizzle(queryClient, { schema });
 export * from "./schema/enums/iam";
 export * from "./schema/enums/experts";
 export * from "./schema/enums/common";
+export * from "./schema/enums/finance";
 
 // NOTE: Domain tables are now exported via modular paths:
 // @vishwakarma-k-c/db/iam

@@ -1,4 +1,4 @@
-import { pgSchema, integer, text, boolean, timestamp } from "drizzle-orm/pg-core";
+import { pgSchema, integer, text, boolean, timestamp, varchar } from "drizzle-orm/pg-core";
 import { users } from "../iam/users";
 import { expertCategoryEnum } from "../../enums/experts";
 
@@ -9,16 +9,14 @@ export const profiles = memberSchema.table("profiles", {
   userId: integer("user_id")
     .notNull()
     .references(() => users.id, { onDelete: "cascade" }),
+  digitalId: varchar("digital_id", { length: 20 }).unique(),
   isVerified: boolean("is_verified").default(false).notNull(),
-  trade: text("trade").notNull(),
+  isPaid: boolean("is_paid").default(false).notNull(),
+  kula: text("kula").notNull(), // One of the 5 branches
+  trade: text("trade").notNull(), // Specific skill/profession
   district: text("district").notNull(),
+  state: text("state").default("Telangana").notNull(),
+  photoUrl: text("photo_url"),
+  joinedAt: timestamp("joined_at").defaultNow().notNull(),
   deletedAt: timestamp("deleted_at"),
-});
-
-export const professionalProfiles = memberSchema.table("professional_profiles", {
-  id: integer("id").primaryKey().generatedAlwaysAsIdentity(),
-  profileId: integer("profile_id").notNull().references(() => profiles.id),
-  category: expertCategoryEnum("category").notNull(),
-  experienceYears: integer("experience_years").notNull(),
-  bio: text("bio"),
 });

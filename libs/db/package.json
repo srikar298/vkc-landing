@@ -9,6 +9,9 @@
     ".": "./src/index.ts",
     "./iam": "./src/schema/modules/iam/index.ts",
     "./members": "./src/schema/modules/members/index.ts",
+    "./finance": "./src/schema/modules/finance/index.ts",
+    "./matrimony": "./src/schema/modules/matrimony/index.ts",
+    "./professionals": "./src/schema/modules/professionals/index.ts",
     "./shared": "./src/schema/modules/shared/index.ts"
   },
   "scripts": {

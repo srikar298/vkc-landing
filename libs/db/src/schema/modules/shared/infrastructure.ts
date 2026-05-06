@@ -40,3 +40,18 @@ export const otpVerifications = sharedSchema.table("otpVerifications", {
   expiresAt: timestamp("expiresAt").notNull(),
   createdAt: timestamp("createdAt").defaultNow().notNull(),
 });
+
+/**
+ * Centralized Media Asset Registry
+ */
+export const mediaAssets = sharedSchema.table("mediaAssets", {
+  id: integer("id").primaryKey().generatedAlwaysAsIdentity(),
+  publicId: varchar("publicId", { length: 21 }).notNull().unique(),
+  ownerId: integer("ownerId"), // User who uploaded it
+  bucket: varchar("bucket", { length: 50 }).notNull(), // e.g. 'profiles', 'heritage'
+  key: text("key").notNull(), // S3/R2 object key
+  mimeType: varchar("mimeType", { length: 100 }),
+  size: integer("size"),
+  metadata: jsonb("metadata"),
+  createdAt: timestamp("createdAt").defaultNow().notNull(),
+});
