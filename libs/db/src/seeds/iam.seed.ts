@@ -1,6 +1,9 @@
 import { eq, sql } from "drizzle-orm";
 import type { PostgresJsDatabase } from "drizzle-orm/postgres-js";
 import { roles, permissions, rolePermissions } from "../schema/modules/iam/permissions";
+import { users, identities } from "../schema/modules/iam/index";
+import { userRoles } from "../schema/modules/iam/permissions";
+import { config } from "@vishwakarma-k-c/shared";
 
 export async function seedIAM(db: any) {
   console.log("  - Ensuring auth_mod schema exists...");
@@ -88,5 +91,54 @@ export async function seedIAM(db: any) {
         })
         .onConflictDoNothing();
     }
+  }
+
+  // 4. Seed Initial Super Admin User (Environmental)
+  if (config.auth.initialAdminIdentifier) {
+    console.log(`  - Seeding Super Admin: ${config.auth.initialAdminIdentifier}`);
+    
+    // Check if user already exists
+    const adminIdentifier = config.auth.initialAdminIdentifier;
+    const provider = adminIdentifier.includes("@") ? "EMAIL" : "PHONE";
+
+    const existingIdentity = await db.query.identities.findFirst({
+      where: eq(identities.identifier, adminIdentifier),
+    });
+
+    if (!existingIdentity) {
+      await db.transaction(async (tx: any) => {
+        // Create User
+        const [newUser] = await tx.insert(users).values({
+          role: "SUPER_ADMIN",
+          firstName: "System",
+          lastName: "Admin",
+        }).returning();
+
+        // Create Identity
+        await tx.insert(identities).values({
+          userId: newUser.id,
+          provider: provider,
+          identifier: adminIdentifier,
+          isVerified: true,
+        });
+
+        // Assign Role
+        const superAdminRole = await tx.query.roles.findFirst({
+          where: eq(roles.name, "SUPER_ADMIN"),
+        });
+
+        if (superAdminRole) {
+          await tx.insert(userRoles).values({
+            userId: newUser.id,
+            roleId: superAdminRole.id,
+          });
+        }
+      });
+      console.log("    ✔ Super Admin created successfully.");
+    } else {
+      console.log("    ℹ Super Admin identity already exists. Skipping creation.");
+    }
+  } else {
+    console.log("  ⚠ No INITIAL_ADMIN_IDENTIFIER found. Skipping admin user seeding.");
   }
 }

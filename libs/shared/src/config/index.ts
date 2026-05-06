@@ -21,6 +21,7 @@ const rawSchema = z.object({
   // Auth
   JWT_SECRET: z.string().min(32),
   JWT_EXPIRES_IN: z.string().default('7d'),
+  INITIAL_ADMIN_IDENTIFIER: z.string().optional().describe("ID of the first super-admin (phone/email)"),
 
   // Firebase (Optional in Dev, Mandatory in Prod)
   FIREBASE_PROJECT_ID: z.string().optional(),
@@ -55,6 +56,7 @@ const configSchema = rawSchema.transform((values) => ({
   auth: {
     jwtSecret: values.JWT_SECRET,
     jwtExpiresIn: values.JWT_EXPIRES_IN,
+    initialAdminIdentifier: values.INITIAL_ADMIN_IDENTIFIER,
     firebase: {
       projectId: values.FIREBASE_PROJECT_ID,
       clientEmail: values.FIREBASE_CLIENT_EMAIL,
